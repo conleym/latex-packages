@@ -1,0 +1,155 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+uniformmargins --- Macros for writing packages
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+uniformmargins --- Macros for writing packages
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2017 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file uniformmargins.dtx and a Makefile.
+Running "make" generates the derived files README, uniformmargins.pdf and uniformmargins.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/uniformmargins}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/uniformmargins}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/uniformmargins}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{uniformmargins.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{uniformmargins}
+%<*package>
+    [2005/08/30 v1.0 A simple package to set all margins simultaneously]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \DoNotIndex{\newcommand,\newenvironment}
+%
+%\title{\textsf{uniformmargins} ---  A simple package to set all margins simultaneously\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2017/03/22}{First public release}
+%
+% \begin{abstract}
+% This package is a simple wrapper around the \textsf{geometry}
+% package.  Here, a single option simultaneously sets the top, bottom,
+% left and right margins.
+% \end{abstract}
+%
+% \section*{Example}
+%
+% Use the following to set the top, bottom, left and right margins to 1 inch.
+%
+% \begin{verbatim}
+% \documentclass{article}
+% \usepackage[1in]{uniformmargins}
+% \end{verbatim}
+%
+% \StopEventually{\break \PrintChanges \break \PrintIndex}
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+% The implementation is a simple matter of forwarding the argument to
+% \textsf{geometry}, adding top=, etc.
+%    \begin{macrocode}
+\DeclareOption*{%
+  \PassOptionsToPackage{
+    top=\CurrentOption,%
+    bottom=\CurrentOption,%
+    left=\CurrentOption,%
+    right=\CurrentOption}{geometry}%
+}
+
+\ProcessOptions\relax
+\RequirePackage{geometry}
+\endinput
+%</package>
+%    \end{macrocode}
+%\Finale

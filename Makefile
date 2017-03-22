@@ -13,7 +13,7 @@ INSTALLDIR=$(shell kpsewhich -var-value TEXMFLOCAL)
 SUDO=sudo
 endif
 
-PACKAGES=catcode package pzc ifmm
+PACKAGES=catcode package pzc ifmm uniformmargins
 
 
 all:
