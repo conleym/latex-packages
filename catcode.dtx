@@ -1,0 +1,512 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+catcode --- Macros for dealing with TeX catcodes
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+catcode --- Macros for dealing with TeX catcodes
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2015 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file catcode.dtx and a Makefile.
+Running "make" generates the derived files README, catcode.pdf and catcode.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/catcode}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/catcode}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/catcode}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{catcode.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{catcode}
+%<*package>
+    [2015/07/16 v1.00 Macros for dealing with TeX catcodes]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \DoNotIndex{\catcode, \chardef, \endinput, \newcommand}
+%
+%\title{\textsf{catcode} --- Macros for dealing with \TeX\ catcodes\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2015/07/16}{First public release}
+%
+% \begin{abstract}
+% ==== Put abstract text here. ====
+% \end{abstract}
+%
+% \section{Usage}
+%
+% ==== Put descriptive text here. ====
+%
+% \subsection{Symbolic Names for \TeX's Category Codes}
+%
+% These can help make the intent of code that deals with catcodes clearer.
+%
+%
+% \newcommand{\catcodeof}{Category code \cc, the catcode of}
+% \newcounter{currentcharcode}
+% \newcommand{\cc}{\thecurrentcharcode\stepcounter{currentcharcode}}
+%
+% \DescribeMacro{\catescape}
+% \catcodeof\ escape characters.
+%
+% \DescribeMacro{\catbgroup}
+% \catcodeof\ characters that begin a group.
+%
+% \DescribeMacro{\categroup}
+% \catcodeof\ characters that end a group.
+%
+% \DescribeMacro{\catmathshift}
+% \catcodeof\ characters that toggle math mode.
+%
+% \DescribeMacro{\catalign}
+% \catcodeof\ characters used to align text.
+%
+% \DescribeMacro{\catendline}
+% \catcodeof\ end of line characters.
+%
+% \DescribeMacro{\catparam}
+% \catcodeof\ characters used as sigils to identify macro parameters.
+%
+% \DescribeMacro{\catsuper}
+% \catcodeof\ characters used to start superscripting.
+%
+% \DescribeMacro{\catsub}
+% \catcodeof\ characters used to start subscripting.
+%
+% \DescribeMacro{\catignore}
+% \catcodeof\ characters \TeX\ ignores.
+%
+% \DescribeMacro{\catspace}
+% \catcodeof\ whitespace characters.
+%
+% \DescribeMacro{\catletter}
+% \catcodeof\ characters that can be used to name macros.
+%
+% \DescribeMacro{\catother}
+% \catcodeof\ other characters.
+%
+% \DescribeMacro{\catactive}
+% \catcodeof\ ``active'' characters, which can be expanded like single-character macros (with no leading \textbackslash needed).
+%
+% \DescribeMacro{\catcomment}
+% \catcodeof\ characters used to begin comments.
+%
+% \DescribeMacro{\catinvalid}
+% \catcodeof\ invalid characters.
+%
+% \subsection{Commands to Change a Character's catcode}
+%
+% Change a given character's catcode easily.
+%
+% \DescribeMacro{\ignorenewline}
+% Tell \TeX\ to ignore newlines when processing input.
+%
+% \DescribeMacro{\normalnewline}
+% Tell \TeX\ not to ignore newlines when processing input.
+%
+% \DescribeMacro{\ignorespace}
+% Tell \TeX\ to ignore space when processing input.
+%
+% \DescribeMacro{\normalspace}
+% Tell \TeX\ not to ignore space when processing input.
+%
+% \DescribeMacro{\makecatescape}
+% |\makecatescape|\marg{char}: Change the catcode of \marg{char} to |\catescape|.
+%
+% \DescribeMacro{\makecatbgroup}
+% |\makecatbgroup|\marg{char}: Change the catcode of \marg{char} to |\catbgroup|.
+%
+%\StopEventually{^^A
+%  \break
+%  \PrintChanges
+%  \break
+%  \PrintIndex
+%}
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+%% \subsection{Symbolic Names for Category Codes}
+%
+% The implementation of these is trivial -- they're simply
+% \verb!\chardef!s.
+%
+%
+%\begin{macro}{\catescape}
+%    \begin{macrocode}
+\chardef\catescape=0
+%    \end{macrocode}
+%\end{macro}
+%
+%
+% \begin{macro}{\catbgroup}
+%    \begin{macrocode}
+\chardef\catbgroup=1
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\categroup}
+%    \begin{macrocode}
+\chardef\categroup=2
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catmathshift}
+%    \begin{macrocode}
+\chardef\catmathshift=3
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catalign}
+%    \begin{macrocode}
+\chardef\catalign=4
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catendline}
+%    \begin{macrocode}
+\chardef\catendline=5
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catparam}
+%    \begin{macrocode}
+\chardef\catparam=6
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catsuper}
+%    \begin{macrocode}
+\chardef\catsuper=7
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catsub}
+%    \begin{macrocode}
+\chardef\catsub=8
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catignore}
+%    \begin{macrocode}
+\chardef\catignore=9
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catspace}
+%    \begin{macrocode}
+\chardef\catspace=10
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catletter}
+%    \begin{macrocode}
+\chardef\catletter=11
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catother}
+%    \begin{macrocode}
+\chardef\catother=12
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catactive}
+%    \begin{macrocode}
+\chardef\catactive=13
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catcomment}
+%    \begin{macrocode}
+\chardef\catcomment=14
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\catinvalid}
+%    \begin{macrocode}
+\chardef\catinvalid=15
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Commands to Change the Way \TeX\ Handles Whitespace}
+%
+%
+% \begin{macro}{\ignorenewline}
+%    \begin{macrocode}
+\newcommand{\ignorenewline}{\endlinechar=-1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\normalnewline}
+%    \begin{macrocode}
+\newcommand{\normalnewline}{\endlinechar=`\^^M}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\ignorespace}
+%    \begin{macrocode}
+\newcommand{\ignorespace}{\makecatignore{\ }}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\normalspace}
+%    \begin{macrocode}
+\newcommand{\normalspace}{\makecatspace{\ }}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Commands to Change a Character's catcode}
+%
+%
+% \begin{macro}{\makecatescape}
+%    \begin{macrocode}
+\newcommand{\makecatescape}[1]{\catcode`#1=\catescape}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatbgroup}
+%    \begin{macrocode}
+\newcommand{\makecatbgroup}[1]{\catcode`#1=\catbgroup}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecategroup}
+%    \begin{macrocode}
+\newcommand{\makecategroup}[1]{\catcode`#1=\categroup}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatmathshift}
+%    \begin{macrocode}
+\newcommand{\makecatmathshift}[1]{\catcode`#1 =\catmathshift}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatalign}
+%    \begin{macrocode}
+\newcommand{\makecatalign}[1]{\catcode`#1=\catalign}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatendline}
+%    \begin{macrocode}
+\newcommand{\makecatendline}[1]{\catcode`#1=\catendline}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatparam}
+%    \begin{macrocode}
+\newcommand{\makecatparam}[1]{\catcode`#1=\catparam}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatsuper}
+%    \begin{macrocode}
+\newcommand{\makecatsuper}[1]{\catcode`#1=\catsuper}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatsub}
+%    \begin{macrocode}
+\newcommand{\makecatsub}[1]{\catcode`#1=\catsub}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatignore}
+%    \begin{macrocode}
+\newcommand{\makecatignore}[1]{\catcode`#1=\catignore}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatspace}
+%    \begin{macrocode}
+\newcommand{\makecatspace}[1]{\catcode`#1=\catspace}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatletter}
+%    \begin{macrocode}
+\newcommand{\makecatletter}[1]{\catcode`#1=\catletter}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatother}
+%    \begin{macrocode}
+\newcommand{\makecatother}[1]{\catcode`#1=\catother}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatcomment}
+%    \begin{macrocode}
+\newcommand{\makecatcomment}[1]{\catcode`#1=\catcomment}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatactive}
+%    \begin{macrocode}
+\newcommand{\makecatactive}[1]{\catcode`#1=\catactive}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makecatinvalid}
+%    \begin{macrocode}
+\newcommand{\makecatinvalid}[1]{\catcode`#1=\catinvalid}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+\endinput
+%</package>
+%    \end{macrocode}
+%
+%
+%
+% \CheckSum{112}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \Finale
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:

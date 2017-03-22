@@ -1,0 +1,340 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+package --- Macros for writing packages
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+package --- Macros for writing packages
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2015 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file package.dtx and a Makefile.
+Running "make" generates the derived files README, package.pdf and package.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/package}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/package}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/package}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{package.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{package}
+%<package>\RequirePackage{catcode}
+%<*package>
+    [2015/07/16 v1.00 Macros for writing packages]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \DoNotIndex{\newcommand, \def}
+%
+%\title{\textsf{package} --- Macros for writing \LaTeX\ packages\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2015/07/16}{First public release}
+%
+% \begin{abstract}
+%   \textsf{Package} provides a nice pseudo-environment for \LaTeX{}
+%   package writers.  Within \textsf{Package}, spaces and newlines are
+%   insignificant, so you don't have to put all those annoying \%'s at
+%   the end of every line of your code.
+% \end{abstract}
+%
+% \section{Usage}
+%
+% Here's a sample package, \textsf{sample}, implemented using
+% \textsf{package}.  You'll notice that it looks just like an ordinary
+% environment, except that it doesn't use \verb!\begin! and
+%   \verb!\end!, which are only allowed after \verb!\begin{document}!.
+%   Instead, the pseudo-environment is delimited by
+%   \verb!\Package{sample}! and \verb!\EndPackage!.
+%
+% \begin{verbatim}
+% \NeedsTeXFormat{LaTeX2e}
+% \RequirePackage{package}
+% \Package{sample}
+%    \newcommand{\samplemacro}{
+%      No comments needed,
+%
+%      and embedded newlines are OK, too!
+%    }
+% \EndPackage
+% \end{verbatim}
+%
+% If we were to import the \textsf{sample} package, then
+% \verb!\samplemacro! would be typeset as:
+%
+% Nocommentsneeded,andembeddednewlinesareOK,too!
+%
+% Oops!  Since \TeX\ is ignoring spaces, we got no spaces \emph{at
+% all} in out output!  To fix this, we need \verb!\NormalWhitespace!
+% and a group, or \verb!\NormalWhitespaceIn!, which handles the group
+% for you.  An example of the second option:
+% \begin{verbatim}
+%  \newcommand{\samplemacro}{
+%     \NormalWhitespaceIn{No comments needed, }
+%
+%     \NormalWhitespaceIn{and embedded newlines are OK, too!}
+%  }
+% \end{verbatim}
+%
+% \DescribeMacro{\IgnoreWhitespace}
+%
+% \verb!\IgnoreWhitespace! tells \TeX\ to ignore spaces and newlines until
+% told otherwise.
+%
+% \DescribeMacro{\NormalWhitespace}
+%
+% \verb!\NormalWhitespace! tells \TeX\ not to ignore spaces or newlines
+% until told otherwise.
+%
+% \DescribeMacro{\IgnoreWhitespaceIn}
+%
+% \verb!\IgnoreWhitespaceIn!\marg{text} tells \TeX\ to typeset
+% \meta{text}, ignoring spaces and newlines.
+%
+% \DescribeMacro{\NormalWhitespaceIn}
+%
+% \verb!\NormalWhitespaceIn!\marg{text} tells \TeX\ to typeset
+% \meta{text} without ignoring spaces or newlines.
+%
+% \DescribeMacro{\NeedsPackage}
+%
+% A safe version of \verb!\RequirePackage! that ensures spaces and
+% newlines are \emph{not} ignored within the loaded package.
+%
+% \DescribeMacro{\Package}
+%
+% Starts a package.  \verb!\Package!\oarg{desc}\marg{name} tells
+% \LaTeX\ to create a package named \meta{name} with optional
+% description \meta{desc}.  Until told otherwise, \TeX\ will ignore
+% spaces and newlines.
+%
+% \DescribeMacro{\EndPackage}
+%
+% End your package.  This tells \TeX\ to once again consider spaces
+% and newlines, and lets it know that nothing further in the text file
+% should be processed.
+%
+%
+%\StopEventually{^^A
+%  \break
+%  \PrintChanges
+%  \break
+%  \PrintIndex
+%}
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+%
+% \begin{macro}{\IgnoreWhitespace}
+% Tell \TeX\ to ignore whitespace using macros from the \texttt{catcode} package.
+%    \begin{macrocode}
+\newcommand{\IgnoreWhitespace}{%
+  \ignorespace%
+  \ignorenewline%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\NormalWhitespace}
+%     \begin{macrocode}
+\newcommand{\NormalWhitespace}{%
+  \normalnewline%
+  \normalspace%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IgnoreWhitespaceIn}
+%    \begin{macrocode}
+\newcommand{\IgnoreWhitespaceIn}[1]{{%
+  \IgnoreWhitespace%
+  #1%
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\NormalWhitespaceIn}
+%    \begin{macrocode}
+\newcommand{\NormalWhitespaceIn}[1]{{%
+  \NormalWhitespace%
+  #1%
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\NeedsPackage}
+%    \begin{macrocode}
+\newcommand{\NeedsPackage}[1]{%
+  \@ifnextchar[{\package@needspackage{#1}}%
+               {\package@needspackage{#1}[]}%] <- keep editors happy with matching pairs
+}
+\def\package@needspackage#1[#2]{%
+  \NormalWhitespace%
+  \RequirePackage{#1}[#2]%
+  \IgnoreWhitespace%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\Package}
+%   This macro changes the category codes for spaces and newlines,
+%   making them insignificant to \TeX.  It also declares your package
+%   for you.  Note that the default value for the optional argument is
+%   [], i.e., no description is given to \verb!\ProvidesPackage! by
+%   default.
+%
+%   This macro was constructed with the aid of \textsf{newcommand.py},
+%   available at \verb!ctan:/support/newcommand!.
+%
+%    \begin{macrocode}
+\newcommand{\Package}[1]{%
+  \@ifnextchar[{\package@package{#1}}%
+               {\package@package{#1}[]}%]
+}
+\def\package@package#1[#2]{%
+  \ProvidesPackage{#1}[#2]%
+  \IgnoreWhitespace%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\EndPackage}
+%   Resets the category codes for spaces and endlines, and produces an
+%   \verb!\endinput! to finish off your package.
+%
+%   We have to use \verb!\def!, because \verb!\newcommand! refuses to
+%   accept any macro name beginning with \verb!\end!.
+%
+%    \begin{macrocode}
+\def\EndPackage{%
+  \NormalWhitespace%
+  \endinput%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\endinput
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{38}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+%\Finale
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
