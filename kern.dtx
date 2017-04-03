@@ -150,10 +150,20 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \begin{macro}{\vkern}
 %   First, we need a \verb!\par! token to force \TeX\ into vmode.
-%   Then do the \verb!\kern!.
+%   Now, we also need to remove any \verb!\parskip! glue, so we do a
+%   \verb!\vskip!.  We need to check \verb!\ifvmode! because
+%   \verb!\par! tokens are ignored in vertical mode.  So, if we're
+%   already in vertical mode, the \verb!\parskip! glue will not be
+%   added, since we wouldn't be starting a new paragraph afterward!
+%   Thus, our \verb!\vskip! would actually add more negative glue,
+%   rather than cancelling out any \verb!\parskip! glue.
+%
 %    \begin{macrocode}
 \newcommand{\vkern}[1]{
-  \par
+  \ifvmode\else
+    \par
+    \vskip-\parskip
+  \fi
   \kern #1
 }
 %    \end{macrocode}
@@ -175,7 +185,7 @@ Running "make install" installs the files in the local TeX tree.
 %</package>
 %    \end{macrocode}
 %
-% \CheckSum{0}
+% \CheckSum{19}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
