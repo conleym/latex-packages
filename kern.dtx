@@ -46,26 +46,26 @@ http://www.latex-project.org/lppl.txt
 This work is "maintained" (as per LPPL maintenance status) by
 Mike Conley.
 
-This work consists of the file ifmm.dtx and a Makefile.
-Running "make" generates the derived files README, ifmm.pdf and ifmm.sty.
+This work consists of the file kern.dtx and a Makefile.
+Running "make" generates the derived files README, kern.pdf and kern.sty.
 Running "make inst" installs the files in the user's TeX tree.
 Running "make install" installs the files in the local TeX tree.
 
 \endpostamble
 
-\usedir{tex/latex/ifmm}
+\usedir{tex/latex/kern}
 \generate{
   \file{\jobname.sty}{\from{\jobname.dtx}{package}}
 }
 %</install>
 %<install>\endbatchfile
 %<*internal>
-\usedir{source/latex/ifmm}
+\usedir{source/latex/kern}
 \generate{
   \file{\jobname.ins}{\from{\jobname.dtx}{install}}
 }
 \nopreamble\nopostamble
-\usedir{doc/latex/ifmm}
+\usedir{doc/latex/kern}
 \generate{
   \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
 }
@@ -79,7 +79,7 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{ifmm.dtx}
+\ProvidesFile{kern.dtx}
 %</driver>
 %<*package>
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
