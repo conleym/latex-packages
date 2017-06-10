@@ -118,15 +118,6 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \section{Usage}
 %
-% \DescribeMacro{\savemathstyle}
-%
-% (Re)define the macro \verb!\mathstyle! to the current math style.
-%
-% \DescribeMacro{\mathstyle}
-%
-% Restore a math style previously saved with \verb!\savemathstyle!.
-% If no value has yet been saved, the default is \verb!textstyle!.
-%
 % \DescribeMacro{\outermathstyle}
 %
 % \DescribeMacro{\gbox}
@@ -154,31 +145,6 @@ Running "make install" installs the files in the local TeX tree.
 %<*package>
 
 %    \end{macrocode}
-% \begin{macro}{\savemathstyle}
-%
-%   This is just a simple application of \verb!\mathchoice!.
-%
-%    \begin{macrocode}
-\newcommand{\savemathstyle}{
-  \mathchoice{\def\mathstyle{\displaystyle}}
-             {\def\mathstyle{\textstyle}}
-             {\def\mathstyle{\scriptstyle}}
-             {\def\mathstyle{\scriptscriptstyle}}
-}
-%    \end{macrocode}
-% \end{macro}
-%
-%
-% \begin{macro}{\mathstyle}
-%
-%   We need to give \verb!\mathstyle! a default value, so that it can
-%   be used without first calling \verb!\savemathstyle!.
-%
-%    \begin{macrocode}
-\newcommand{\mathstyle}{\textstyle}
-%    \end{macrocode}
-% \end{macro}
-%
 %
 % \begin{macro}{\outermathstyle}
 %
