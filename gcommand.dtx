@@ -117,14 +117,20 @@ Running "make install" installs the files in the local TeX tree.
 % \section{Usage}
 %
 % \DescribeMacro{\DeclareGenericCommand}
+%
 % Declare a command that will work in both text and math mode.
-
-% \verb!\DeclareGenericCommand!\marg{name}\oarg{nargs}\marg{text}\marg{math}
+%
+% \verb!\DeclareGenericCommand!\marg{name}\oarg{nargs}\marg{math}\marg{text}
 % declares a macro named \meta{name}, optionally taking \meta{nargs} arguments.
 % \verb!\name! will expand to \meta{text} in text mode and \meta{math} in math
 % mode.
-% \\ \\
-% \DescribeMacro{\gpallette}
+%
+% \DeclareGenericCommand{\example}{a}{b}
+% For example, if we declare \verb!\gt! as \verb!\DeclareGenericCommand{\example}{a}{b}!,
+% then \verb!\example! typesets as \example, and \verb!$\example$! as $\example$.
+%
+% \DescribeMacro{\gpalette}
+%
 % A generic version of \verb!mathpallette!.
 %
 %
@@ -135,6 +141,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 %
 % \begin{macro}{\DeclareGenericCommand}
+%
 % A wrapper around \verb!\gcommand@i! that checks for \meta{nargs}.
 %    \begin{macrocode}
 \def\DeclareGenericCommand#1{
