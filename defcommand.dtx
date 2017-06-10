@@ -1,0 +1,187 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+defcommand --- Define a macro, even if it's already defined
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+defcommand --- Define a macro, even if it's already defined
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2017 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file defcommand.dtx and a Makefile.
+Running "make" generates the derived files README, defcommand.pdf and defcommand.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/defcommand}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/defcommand}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/defcommand}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{defcommand.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{defcommand}
+%<*package>
+    [2017/06/10 v1.00 Define a macro, even if it's already defined]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \DoNotIndex{\newcommand,\newenvironment}
+%
+%\title{\textsf{defcommand} --- Define a macro, even if it's already defined\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2017/06/10}{First public release}
+%
+% \DescribeMacro{\defcommand}
+% Define a new command without first checking to see whether it is defined.
+%
+%\StopEventually{^^A
+%  \break
+%  \PrintChanges
+%  \break
+%  \PrintIndex
+%}
+%
+% \section{Implementation}
+%
+% To understand the implementation, it is probably best to look at the \LaTeX\
+% implementations of \verb!\newcommand! and \verb!\renewcommand! in
+% \textsf{ltxdefns.dtx}.
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\defcommand}
+% Create an analogue to \verb!\newcommand! that calls our own internal
+% \verb!\def@command! instead of \verb!\new@command!.
+%    \begin{macrocode}
+\def\defcommand{\@star@or@long\def@command}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\def@command}
+% This is a stripped-down version of \verb!\renewcommand!, skipping the check
+% for previously-undefined macros.
+%    \begin{macrocode}
+\def\def@command#1{
+    \let\@ifdefinable\@rc@ifdefinable
+    \new@command#1
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+% \CheckSum{11}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \Finale
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
