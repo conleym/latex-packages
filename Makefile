@@ -4,7 +4,7 @@ OUTDIR=./out
 LATEX=latexmk -output-directory=$(OUTDIR)
 RM=rm
 
-PACKAGES=catcode package defcommand pzc ifmm uniformmargins kern
+PACKAGES=catcode package defcommand ifmm gcommand gbox pzc uniformmargins kern
 
 
 all:

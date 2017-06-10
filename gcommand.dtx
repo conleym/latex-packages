@@ -1,0 +1,203 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+gcommand --- Define commands that work in both math and text mode.
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+gcommand --- Define commands that work in both math and text mode.
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2017 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file gcommand.dtx and a Makefile.
+Running "make" generates the derived files README, gcommand.pdf and gcommand.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/gcommand}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/gcommand}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/gcommand}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{gcommand.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package, ifmm, defcommand}
+%<package>\ProvidesPackage{gcommand}
+%<*package>
+    [2017/06/10 v1.00 Define commands that work in both math and text mode.]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \DoNotIndex{\newcommand,\def}
+%
+%\title{\textsf{gcommand} --- Define commands that work in both math and text mode.\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2017/06/10}{First public release}
+%
+% \section{Usage}
+%
+% \DescribeMacro{\DeclareGenericCommand}
+% Declare a command that will work in both text and math mode.
+
+% \verb!\DeclareGenericCommand!\marg{name}\oarg{nargs}\marg{text}\marg{math}
+% declares a macro named \meta{name}, optionally taking \meta{nargs} arguments.
+% \verb!\name! will expand to \meta{text} in text mode and \meta{math} in math
+% mode.
+% \\ \\
+% \DescribeMacro{\gpallette}
+% A generic version of \verb!mathpallette!.
+%
+%
+%\StopEventually{^^A
+%  \break
+%  \PrintChanges
+%  \break
+%  \PrintIndex
+%}
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+% \begin{macro}{\DeclareGenericCommand}
+% A wrapper around \verb!\gcommand@i! that checks for \meta{nargs}.
+%    \begin{macrocode}
+\def\DeclareGenericCommand#1{
+  \@ifnextchar[{\gcommand@i{#1}}
+               {\gcommand@i{#1}[0]}%]
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\gcommand@i}
+%    \begin{macrocode}
+\def\gcommand@i#1[#2]#3#4{
+  \defcommand{#1}[#2]{\ifmm{#3}{#4}}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\gpalette}
+%    \begin{macrocode}
+\DeclareGenericCommand{\gpalette}[2]{
+  \mathpalette#1{#2}}{#1{{}}{#2}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+% \CheckSum{13}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \Finale
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
+\EndPackage
