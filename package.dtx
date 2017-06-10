@@ -206,6 +206,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 %
 % \begin{macro}{\IgnoreWhitespace}
+%
 % Tell \TeX\ to ignore whitespace using macros from the \texttt{catcode} package.
 %    \begin{macrocode}
 \newcommand{\IgnoreWhitespace}{%
@@ -262,12 +263,13 @@ Running "make install" installs the files in the local TeX tree.
 %
 %
 % \begin{macro}{\Package}
+%
 %   This macro changes the category codes for spaces and newlines,
 %   making them insignificant to \TeX.  It also declares your package
 %   for you.  Note that the default value for the optional argument is
 %   [], i.e., no description is given to \verb!\ProvidesPackage! by
 %   default.
-%
+%   \\
 %   This macro was constructed with the aid of \textsf{newcommand.py},
 %   available at \verb!ctan:/support/newcommand!.
 %
@@ -284,6 +286,7 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 % \begin{macro}{\EndPackage}
+%
 %   Resets the category codes for spaces and endlines, and produces an
 %   \verb!\endinput! to finish off your package.
 %
