@@ -69,7 +69,7 @@ Running "make install" installs the files in the local TeX tree.
 \nopreamble\nopostamble
 \usedir{doc/latex/gcommand}
 \generate{
-  \file{README.txt}{\from{\jobname.dtx}{readme}}
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
 }
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
@@ -104,7 +104,7 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \DoNotIndex{\newcommand,\def}
+% \input{common.tex}
 %
 %\title{\textsf{gcommand} --- Define commands that work in both math and text mode.\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -129,13 +129,6 @@ Running "make install" installs the files in the local TeX tree.
 % \DescribeMacro{\gpallette}
 % A generic version of \verb!mathpallette!.
 %
-%
-%\StopEventually{^^A
-%  \break
-%  \PrintChanges
-%  \break
-%  \PrintIndex
-%}
 %
 % \section{Implementation}
 %

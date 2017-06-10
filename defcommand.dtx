@@ -69,7 +69,7 @@ Running "make install" installs the files in the local TeX tree.
 \nopreamble\nopostamble
 \usedir{doc/latex/defcommand}
 \generate{
-  \file{README.txt}{\from{\jobname.dtx}{readme}}
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
 }
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
@@ -103,7 +103,7 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \DoNotIndex{\newcommand,\newenvironment}
+% \input{common.tex}
 %
 %\title{\textsf{defcommand} --- Define a macro, even if it's already defined\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -118,12 +118,6 @@ Running "make install" installs the files in the local TeX tree.
 % \DescribeMacro{\defcommand}
 % Define a new command without first checking to see whether it is defined.
 %
-%\StopEventually{^^A
-%  \break
-%  \PrintChanges
-%  \break
-%  \PrintIndex
-%}
 %
 % \section{Implementation}
 %

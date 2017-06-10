@@ -102,7 +102,7 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \DoNotIndex{\newcommand, \def}
+% \input{common.tex}
 %
 %\title{\textsf{package} --- Macros for writing \LaTeX\ packages\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -197,13 +197,6 @@ Running "make install" installs the files in the local TeX tree.
 % and newlines, and lets it know that nothing further in the text file
 % should be processed.
 %
-%
-%\StopEventually{^^A
-%  \break
-%  \PrintChanges
-%  \break
-%  \PrintIndex
-%}
 %
 % \section{Implementation}
 %

@@ -101,7 +101,8 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \DoNotIndex{\catcode, \chardef, \endinput, \newcommand}
+% \input{common.tex}
+% \DoNotIndex{\catcode, \chardef}
 %
 %\title{\textsf{catcode} --- Macros for dealing with \TeX\ catcodes\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -194,12 +195,6 @@ Running "make install" installs the files in the local TeX tree.
 % \DescribeMacro{\makecatbgroup}
 % |\makecatbgroup|\marg{char}: Change the catcode of \marg{char} to |\catbgroup|.
 %
-%\StopEventually{^^A
-%  \break
-%  \PrintChanges
-%  \break
-%  \PrintIndex
-%}
 %
 % \section{Implementation}
 %

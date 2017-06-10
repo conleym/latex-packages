@@ -4,7 +4,7 @@
 %</internal>
 %<*readme>
 ----------------------------------------------------------------
-uniformmargins --- Macros for writing packages
+uniformmargins --- A simple package to set all margins simultaneously
 Author:  Mike Conley
 E-mail:  conasdf@gmail.com
 License: Released under the LaTeX Project Public License v1.3c or later
@@ -24,7 +24,7 @@ See:     http://www.latex-project.org/lppl.txt
 \askforoverwritefalse
 \preamble
 ----------------------------------------------------------------
-uniformmargins --- Macros for writing packages
+uniformmargins --- A simple package to set all margins simultaneously
 Author:  Mike Conley
 E-mail:  conasdf@gmail.com
 License: Released under the LaTeX Project Public License v1.3c or later
@@ -67,7 +67,7 @@ Running "make install" installs the files in the local TeX tree.
 \nopreamble\nopostamble
 \usedir{doc/latex/uniformmargins}
 \generate{
-  \file{README.txt}{\from{\jobname.dtx}{readme}}
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
 }
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
@@ -101,7 +101,7 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \DoNotIndex{\newcommand,\newenvironment}
+ % \input{common.tex}
 %
 %\title{\textsf{uniformmargins} ---  A simple package to set all margins simultaneously\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -128,7 +128,6 @@ Running "make install" installs the files in the local TeX tree.
 % \usepackage[1in]{uniformmargins}
 % \end{verbatim}
 %
-% \StopEventually{\break \PrintChanges \break \PrintIndex}
 %
 % \section{Implementation}
 %
@@ -138,7 +137,7 @@ Running "make install" installs the files in the local TeX tree.
 % \textsf{geometry}, adding top=, etc.
 %    \begin{macrocode}
 \DeclareOption*{%
-  \PassOptionsToPackage{
+  \PassOptionsToPackage{%
     top=\CurrentOption,%
     bottom=\CurrentOption,%
     left=\CurrentOption,%
