@@ -1,17 +1,8 @@
-.PHONY: package cleanpackage clean installpackage install
+.PHONY: package cleanpackage clean installpackage inst install
 
 OUTDIR=./out
 LATEX=latexmk -output-directory=$(OUTDIR)
-RM=trash
-
-# make userdir=1 install will install to user's texmf. otherwise installs to local texmf.
-ifdef userdir
-INSTALLDIR=$(shell kpsewhich -var-value TEXMFHOME)
-SUDO=
-else
-INSTALLDIR=$(shell kpsewhich -var-value TEXMFLOCAL)
-SUDO=sudo
-endif
+RM=rm
 
 PACKAGES=catcode package defcommand pzc ifmm uniformmargins kern
 
@@ -43,5 +34,8 @@ installpackage:
 	$(SUDO) cp $(OUTDIR)/$(PACKAGE).sty $(INSTALLDIR)/tex/latex/mctools
 	$(SUDO) cp $(OUTDIR)/$(PACKAGE).pdf $(INSTALLDIR)/doc/latex/mctools
 
+inst: all
+	for P in $(PACKAGES) ; do $(MAKE) PACKAGE=$${P}	INSTALLDIR=$(shell kpsewhich -var-value TEXMFHOME) SUDO='' installpackage ; done
+
 install: all
-	for P in $(PACKAGES) ; do $(MAKE) PACKAGE=$${P} installpackage ; done
+	for P in $(PACKAGES) ; do $(MAKE) PACKAGE=$${P} INSTALLDIR=$(shell kpsewhich -var-value TEXMFLOCAL) SUDO='sudo' installpackage ; done
