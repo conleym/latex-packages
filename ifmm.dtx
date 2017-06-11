@@ -102,7 +102,7 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.sty}
-% \DoNotIndex{\DeclareRobustCommand, \fi, \else, \EndPackage}
+% \input{common.tex}
 %
 %\title{\textsf{ifmm} --- A Robust \texttt{\textbackslash{}ifmmode}\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -123,10 +123,6 @@ Running "make install" installs the files in the local TeX tree.
 % expanded in math mode, and the second argument otherwise.  Unlike
 % the standard \LaTeX\ \verb!\ifmmode!, \verb!\ifmm! is robust.
 %
-%\StopEventually{^^A
-%  \PrintChanges
-%  \PrintIndex
-%}
 %
 % \section{Implementation}
 %
