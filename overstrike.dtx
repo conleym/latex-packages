@@ -1,0 +1,307 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+overstrike --- Typeset some text on top of some other text
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+overstrike --- Typeset some text on top of some other text
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2017 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file overstrike.dtx and a Makefile.
+Running "make" generates the derived files README, overstrike.pdf and overstrike.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/overstrike}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/overstrike}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/overstrike}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{overstrike.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package, gcommand}
+%<package>\Package{overstrike}
+%<*package>
+    [2005/08/30 v1.00 Typeset some text on top of some other text]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \input{common.tex}
+%
+%\title{\textsf{overstrike} --- Typeset some text on top of some other text\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+% \begin{abstract}
+% This package is based on \textsf{overlay.sty} written by Jeremy
+% Gibbons.  The original macros are described in
+% ``Hey --- it works!'',
+% \href{http://mirrors.ctan.org/info/digests/ttn/ttn3n2.600.ps}{
+% \textit{\TeX\ and TUG NEWS Vol. 3, No. 2, 1994}}.
+%
+% The implementation here, however, is significantly different.  The
+% following changes have been made:
+% \begin{itemize}
+% \item The name --- I think \textit{overstrike} is more appropriate
+%   than \textit{overlay} (my understanding is that overstrike is, in
+%   fact, the correct technical term).
+%
+% \item These macros work in both text and math modes.
+%
+% \item The \verb!\overlaystyle! macro is not defined.
+% \end{itemize}
+% \end{abstract}
+%
+% \section{Usage}
+%
+% \DescribeMacro{\loverstrike}
+%
+% \verb!\loverstrike!\marg{text1}\marg{text2} typesets \meta{text2}
+% argument directly on top of \meta{text1}.  This macro starts with
+% ``l" because it works in a very simple way.  It simply typesets
+% \meta{text1}, then goes back to the place where it began and
+% typesets \meta{text2}.
+%
+% So, the analogy is this: the first argument is like a box, and the
+% second argument is left justified inside that box.
+%
+% \DescribeMacro{\overstrike}
+%
+% \verb!\overstrike!\marg{text1}\marg{text2} is just like
+% \verb!\roverstrike!, but the second argument is centered over the
+% first.
+%
+% \DescribeMacro{\roverstrike}
+%
+% \verb!\roverstrike!\marg{text1}\marg{text2} is just like
+% \verb!\loverstrike!, but the second argument is right justified
+% over the first.
+%
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\newcommand{\overstrike@mathbox}[2]{\m@th$#1#2$}
+\newcommand{\overstrike@textbox}[2]{#2}
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\overstrike}
+%    \begin{macrocode}
+\DeclareGenericCommand{\overstrike}[2]
+{{
+    \let\overstrike@boxcmd=\overstrike@mathbox
+    \overstrike@overstrikeimpl{#1}{#2}
+}}
+{{
+    \let\overstrike@boxcmd=\overstrike@textbox
+    \overstrike@overstrikeimpl{#1}{#2}
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\overstrike@overstrikeimpl}
+%    \begin{macrocode}
+\newcommand{\overstrike@overstrikeimpl}[2]{
+  \gpalette\overstrike@doit{{#1}{#2}{\hfil}{\hfil}}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\loverstrike}
+%    \begin{macrocode}
+\DeclareGenericCommand{\loverstrike}[2]
+{{
+    \let\overstrike@boxcmd=\overstrike@mathbox
+    \overstrike@loverstrikeimpl{#1}{#2}
+}}
+{{
+    \let\overstrike@boxcmd=\overstrike@textbox
+    \overstrike@loverstrikeimpl{#1}{#2}
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\overstrike@loverstrikeimpl}
+%    \begin{macrocode}
+\newcommand{\overstrike@loverstrikeimpl}[2]{
+  \gpalette\overstrike@doit{{#1}{#2}{}{\hfil}}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\roverstrike}
+%    \begin{macrocode}
+\DeclareGenericCommand{\roverstrike}[2]
+{{
+    \let\overstrike@boxcmd=\overstrike@mathbox
+    \overstrike@roverstrikeimpl{#1}{#2}
+}}
+{{
+    \let\overstrike@boxcmd=\overstrike@textbox
+    \overstrike@roverstrikeimpl{#1}{#2}
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\overstrike@roverstrikeimpl}
+%    \begin{macrocode}
+\newcommand{\overstrike@roverstrikeimpl}[2]{
+  \gpalette\overstrike@doit{{#1}{#2}{\hfil}{}}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\overstrike@doit}
+%
+%   This macro's sole purpose in life is to strip the extra braces
+%   from the second argument.
+%
+%    \begin{macrocode}
+\newcommand{\overstrike@doit}[2]{\overstrike@@doit#1#2}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\overstrike@@doit}
+%    \begin{macrocode}
+\newcommand{\overstrike@@doit}[5]{
+  \setbox0 = \hbox{\overstrike@boxcmd{#1}{#2}}
+  \setbox1 = \hbox{\overstrike@boxcmd{#1}{#3}}
+
+  \ifdim \wd0 < \wd1
+    \setbox2 = \box1
+    \setbox1 = \box0
+    \setbox0 = \box2
+  \fi
+
+  \hbox{\rlap{\hbox to \wd0 {#4\box1\relax#5}}\box0}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+%
+%
+% \CheckSum{80}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \Finale
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
