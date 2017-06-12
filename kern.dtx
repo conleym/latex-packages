@@ -98,8 +98,6 @@ Running "make install" installs the files in the local TeX tree.
 %</driver>
 % \fi
 %
-% \GetFileInfo{\jobname.sty}
-%
 %\title{\textsf{kern} --- Some useful kerning macros\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
 %}
@@ -127,8 +125,8 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 % \begin{macro}{\hkern}
 %   This macro has a very simple implementation -- leave vertical
-%   mode, then kern.  The only trick is to put the \verb!\kern! inside
-%   an \verb!\hbox!, which prevents \TeX\ removing the kern at the
+%   mode, then kern.  The only trick is to put the |\kern| inside
+%   an |\hbox|, which prevents \TeX\ removing the kern at the
 %   beginning of a line or paragraph.
 %    \begin{macrocode}
 \newcommand{\hkern}[1]{
@@ -139,14 +137,14 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 % \begin{macro}{\vkern}
-%   First, we need a \verb!\par! token to force \TeX\ into vmode.
-%   Now, we also need to remove any \verb!\parskip! glue, so we do a
-%   \verb!\vskip!.  We need to check \verb!\ifvmode! because
-%   \verb!\par! tokens are ignored in vertical mode.  So, if we're
-%   already in vertical mode, the \verb!\parskip! glue will not be
+%   First, we need a |\par| token to force \TeX\ into vmode.
+%   Now, we also need to remove any |\parskip| glue, so we do a
+%   |\vskip|.  We need to check |\ifvmode| because
+%   |\par| tokens are ignored in vertical mode.  So, if we're
+%   already in vertical mode, the |\parskip| glue will not be
 %   added, since we wouldn't be starting a new paragraph afterward!
-%   Thus, our \verb!\vskip! would actually add more negative glue,
-%   rather than cancelling out any \verb!\parskip! glue.
+%   Thus, our |vskip| would actually add more negative glue,
+%   rather than cancelling out any |\parskip| glue.
 %
 %    \begin{macrocode}
 \newcommand{\vkern}[1]{

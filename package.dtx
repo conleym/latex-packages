@@ -98,7 +98,6 @@ Running "make install" installs the files in the local TeX tree.
 %</driver>
 % \fi
 %
-% \GetFileInfo{\jobname.dtx}
 %
 %\title{\textsf{package} --- Macros for writing \LaTeX\ packages\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -121,10 +120,10 @@ Running "make install" installs the files in the local TeX tree.
 %
 % Here's a sample package, \textsf{sample}, implemented using
 % \textsf{package}.  You'll notice that it looks just like an ordinary
-% environment, except that it doesn't use \verb!\begin! and
-%   \verb!\end!, which are only allowed after \verb!\begin{document}!.
-%   Instead, the pseudo-environment is delimited by
-%   \verb!\Package{sample}! and \verb!\EndPackage!.
+% environment, except that it doesn't use |\begin| and
+% |\end|, which are only allowed after |\begin{document}|.
+% Instead, the pseudo-environment is delimited by
+% |\Package{sample}| and |\EndPackage|.
 %
 % \begin{verbatim}
 % \NeedsTeXFormat{LaTeX2e}
@@ -139,13 +138,13 @@ Running "make install" installs the files in the local TeX tree.
 % \end{verbatim}
 %
 % If we were to import the \textsf{sample} package, then
-% \verb!\samplemacro! would be typeset as:
+% |\samplemacro| would be typeset as:
 %
 % Nocommentsneeded,andembeddednewlinesareOK,too!
 %
 % Oops!  Since \TeX\ is ignoring spaces, we got no spaces \emph{at
-% all} in the output!  To fix this, we need \verb!\NormalWhitespace!
-% and a group, or \verb!\NormalWhitespaceIn!, which handles the group
+% all} in the output!  To fix this, we need |\NormalWhitespace|
+% and a group, or |\NormalWhitespaceIn|, which handles the group
 % for you.  An example of the second option:
 % \begin{verbatim}
 %  \newcommand{\samplemacro}{
@@ -157,32 +156,32 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeMacro{\IgnoreWhitespace}
 %
-% \verb!\IgnoreWhitespace! tells \TeX\ to ignore spaces and newlines until
+% Tells \TeX\ to ignore spaces and newlines until
 % told otherwise.
 %
 % \DescribeMacro{\NormalWhitespace}
 %
-% \verb!\NormalWhitespace! tells \TeX\ not to ignore spaces or newlines
+% Tells \TeX\ not to ignore spaces or newlines
 % until told otherwise.
 %
 % \DescribeMacro{\IgnoreWhitespaceIn}
 %
-% \verb!\IgnoreWhitespaceIn!\marg{text} tells \TeX\ to typeset
+% |\IgnoreWhitespaceIn|\marg{text} tells \TeX\ to typeset
 % \meta{text}, ignoring spaces and newlines.
 %
 % \DescribeMacro{\NormalWhitespaceIn}
 %
-% \verb!\NormalWhitespaceIn!\marg{text} tells \TeX\ to typeset
+% |\NormalWhitespaceIn|\marg{text} tells \TeX\ to typeset
 % \meta{text} without ignoring spaces or newlines.
 %
 % \DescribeMacro{\NeedsPackage}
 %
-% A safe version of \verb!\RequirePackage! that ensures spaces and
+% A safe version of |\RequirePackage| that ensures spaces and
 % newlines are \emph{not} ignored within the loaded package.
 %
 % \DescribeMacro{\Package}
 %
-% Starts a package.  \verb!\Package!\oarg{desc}\marg{name} tells
+% Starts a package.  |\Package|\oarg{desc}\marg{name} tells
 % \LaTeX\ to create a package named \meta{name} with optional
 % description \meta{desc}.  Until told otherwise, \TeX\ will ignore
 % spaces and newlines.
@@ -263,7 +262,7 @@ Running "make install" installs the files in the local TeX tree.
 %   This macro changes the category codes for spaces and newlines,
 %   making them insignificant to \TeX.  It also declares your package
 %   for you.  Note that the default value for the optional argument is
-%   [], i.e., no description is given to \verb!\ProvidesPackage! by
+%   [], i.e., no description is given to |\ProvidesPackage| by
 %   default.
 %   \\
 %   This macro was constructed with the aid of \textsf{newcommand.py},
@@ -284,10 +283,10 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{macro}{\EndPackage}
 %
 %   Resets the category codes for spaces and endlines, and produces an
-%   \verb!\endinput! to finish off your package.
+%   |\endinput| to finish off your package.
 %
-%   We have to use \verb!\def!, because \verb!\newcommand! refuses to
-%   accept any macro name beginning with \verb!\end!.
+%   We have to use |\def|, because |\newcommand| refuses to
+%   accept any macro name beginning with |\end|.
 %
 %    \begin{macrocode}
 \def\EndPackage{%

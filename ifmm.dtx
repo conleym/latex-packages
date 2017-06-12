@@ -98,7 +98,6 @@ Running "make install" installs the files in the local TeX tree.
 %</driver>
 % \fi
 %
-% \GetFileInfo{\jobname.sty}
 %
 %\title{\textsf{ifmm} --- A Robust \texttt{\textbackslash{}ifmmode}\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -113,11 +112,11 @@ Running "make install" installs the files in the local TeX tree.
 % \section{Usage}
 %
 % \DescribeMacro{\ifmm}
-% \verb!\ifmm!\marg{mathmode}\marg{textmode}
+% |\ifmm|\marg{mathmode}\marg{textmode}
 %
 % An if-then-else construct.  Expands to the first argument if
 % expanded in math mode, and the second argument otherwise.  Unlike
-% the standard \LaTeX\ \verb!\ifmmode!, \verb!\ifmm! is robust.
+% the standard \LaTeX\ |\ifmmode|, |\ifmm| is robust.
 %
 %
 % \section{Implementation}

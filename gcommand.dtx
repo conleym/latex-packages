@@ -98,7 +98,6 @@ Running "make install" installs the files in the local TeX tree.
 %</driver>
 % \fi
 %
-% \GetFileInfo{\jobname.dtx}
 %
 %\title{\textsf{gcommand} --- Define commands that work in both math and text mode.\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -116,18 +115,18 @@ Running "make install" installs the files in the local TeX tree.
 %
 % Declare a command that will work in both text and math mode.
 %
-% \verb!\DeclareGenericCommand!\marg{name}\oarg{nargs}\marg{math}\marg{text}
+% |\DeclareGenericCommand|\marg{name}\oarg{nargs}\marg{math}\marg{text}
 % declares a macro named \meta{name}, optionally taking \meta{nargs} arguments.
-% \verb!\name! will expand to \meta{text} in text mode and \meta{math} in math
+% |\name| will expand to \meta{text} in text mode and \meta{math} in math
 % mode.
 %
 % \DeclareGenericCommand{\example}{a}{b}
-% For example, if we declare \verb!\gt! as \verb!\DeclareGenericCommand{\example}{a}{b}!,
-% then \verb!\example! typesets as \example, and \verb!$\example$! as $\example$.
+% For example, if we declare \verb!\gt! as |!\DeclareGenericCommand{\example}{a}{b}|,
+% then |\example| typesets as \example, and |$\example$| as $\example$.
 %
 % \DescribeMacro{\gpalette}
 %
-% A generic version of \verb!mathpallette!.
+% A generic version of |!mathpalette|.
 %
 %
 % \section{Implementation}
@@ -138,7 +137,7 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \begin{macro}{\DeclareGenericCommand}
 %
-% A wrapper around \verb!\gcommand@i! that checks for \meta{nargs}.
+% A wrapper around |\gcommand@i| that checks for \meta{nargs}.
 %    \begin{macrocode}
 \def\DeclareGenericCommand#1{
   \@ifnextchar[{\gcommand@i{#1}}

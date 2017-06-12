@@ -98,7 +98,6 @@ Running "make install" installs the files in the local TeX tree.
 %</driver>
 % \fi
 %
-% \GetFileInfo{\jobname.dtx}
 %
 %\title{\textsf{defcommand} --- Define a macro, even if it's already defined\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -117,7 +116,7 @@ Running "make install" installs the files in the local TeX tree.
 % \section{Implementation}
 %
 % To understand the implementation, it is probably best to look at the \LaTeX\
-% implementations of \verb!\newcommand! and \verb!\renewcommand! in
+% implementations of |\newcommand| and |\renewcommand| in
 % \href{http://mirrors.ctan.org/macros/latex/base/ltdefns.dtx}{\textsf{ltxdefns.dtx}}.
 %
 %    \begin{macrocode}
@@ -126,8 +125,8 @@ Running "make install" installs the files in the local TeX tree.
 %
 %
 % \begin{macro}{\defcommand}
-% Create an analogue to \verb!\newcommand! that calls our own internal
-% \verb!\def@command! instead of \verb!\new@command!.
+% Create an analogue to |\newcommand| that calls our own internal
+% |\def@command| instead of |\new@command|.
 %    \begin{macrocode}
 \def\defcommand{\@star@or@long\def@command}
 %    \end{macrocode}
@@ -135,7 +134,7 @@ Running "make install" installs the files in the local TeX tree.
 %
 %
 % \begin{macro}{\def@command}
-% This is a stripped-down version of \verb!\renewcommand!, skipping the check
+% This is a stripped-down version of |\renewcommand|, skipping the check
 % for previously-undefined macros.
 %    \begin{macrocode}
 \def\def@command#1{

@@ -98,7 +98,6 @@ Running "make install" installs the files in the local TeX tree.
 %</driver>
 % \fi
 %
-% \GetFileInfo{\jobname.dtx}
 %
 %\title{\textsf{gbox} --- An mbox that preserves math mode.\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -115,14 +114,15 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeMacro{\gbox}
 %
-% A generic \verb!\mbox!.  Unlike \verb!\mbox!, \verb!\gbox! preserves
-% mathmode, i.e., \verb!$\gbox{math math}$! will be typeset as
-% $\gbox{math math}$. Similarly, \verb!\[\gbox{math math}\]! will be
+% A generic |\mbox|.  Unlike |\mbox|, |\gbox| preserves
+% mathmode, i.e., |$\gbox{math math}$| will be typeset as
+% $\gbox{math math}$. Similarly, |\[\gbox{math math}\]| will be
 % typeset as \[\gbox{math math}\]
 %
-% \verb!\gbox! also preserves the current math style, i.e., used in
+% |\gbox| also preserves the current math style, i.e., used in
 % displaymode or as a super/subscript will also typeset its contents
-% appropriately, e.g., \verb!$X^{\gbox{y_{\gbox{z}}}}$! is typeset as $X^{\gbox{y_{\gbox{z}}}}$.
+% appropriately, e.g., |$X^{\gbox{y_{\gbox{z}}}}$| is typeset as
+% $X^{\gbox{y_{\gbox{z}}}}$.
 %
 %
 %
@@ -135,8 +135,8 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \begin{macro}{\gbox@outermathstyle}
 %
-% A simple application of \verb!\mathchoice!, using \verb!\everymath! to restore
-% the current style in future math modes.
+% A simple application of |\mathchoice|, using |\everymath| to restore
+% the current style in subsequent math modes.
 %
 %    \begin{macrocode}
 \newcommand{\gbox@outermathstyle}[1]{
@@ -153,9 +153,9 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
 \newcommand{\gbox}[1]{
 %    \end{macrocode}
-% We're in math mode. Grab the current math style with \verb!\gbox@outermathstyle! in
+% We're in math mode. Grab the current math style with |\gbox@outermathstyle| in
 % a group (to avoid changing any existing value it may have), then create an
-% mbox having \verb!\mathsurround=0! (to avoid typesetting any nonzero value
+% mbox having |\mathsurround=0| (to avoid typesetting any nonzero value
 % redundantly inside the mbox).
 %    \begin{macrocode}
     \ifmm{\begingroup\gbox@outermathstyle{\mbox{\m@th$#1$}}\endgroup}
