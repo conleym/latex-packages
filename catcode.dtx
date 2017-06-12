@@ -91,9 +91,6 @@ Running "make install" installs the files in the local TeX tree.
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage[numbered]{hypdoc}
 \usepackage{\jobname}
-\EnableCrossrefs
-\CodelineIndex
-\RecordChanges
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
@@ -101,7 +98,6 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \input{common.tex}
 % \DoNotIndex{\catcode, \chardef}
 %
 %\title{\textsf{catcode} --- Macros for dealing with \TeX\ catcodes\thanks{This file
@@ -491,7 +487,6 @@ Running "make install" installs the files in the local TeX tree.
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \Finale
 % \endinput
 % Local Variables:
 % mode: doctex

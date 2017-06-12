@@ -91,8 +91,6 @@ Running "make install" installs the files in the local TeX tree.
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage[numbered]{hypdoc}
 \usepackage{\jobname}
-\EnableCrossrefs
-\CodelineIndex
 \RecordChanges
 \begin{document}
   \DocInput{\jobname.dtx}
@@ -101,7 +99,6 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \input{common.tex}
 %
 %\title{\textsf{defcommand} --- Define a macro, even if it's already defined\thanks{This file
 %   describes version \fileversion, last revised \filedate.}
@@ -171,7 +168,6 @@ Running "make install" installs the files in the local TeX tree.
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \Finale
 % \endinput
 % Local Variables:
 % mode: doctex
