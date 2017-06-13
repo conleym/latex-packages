@@ -1,0 +1,352 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+gsymb --- Generic symbols
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+gsymb --- Generic symbols
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2015 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file pzc.dtx and a Makefile.
+Running "make" generates the derived files README, gsymb.pdf and gsymb.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/gsymb}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/gsymb}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/gsymb}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{gsymb.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package, gcommand}
+%<package>\Package{gsymb}
+%<*package>
+     [2005/08/30 v1.00 Generic symbols]
+%</package>
+%<*driver>
+\NormalWhitespace
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%
+%\title{\textsf{gsymb} --- Generic Symbols\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+% \begin{abstract}
+%   (Re)define math symbol macros with generic versions that work in both
+%   text and math mode.
+% \end{abstract}
+%
+% \section{Usage}
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\i}
+%    \begin{macrocode}
+\let\gsymb@i = \i
+\DeclareGenericCommand{\i}{\imath}{\gsymb@i}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\j}
+%    \begin{macrocode}
+\let\gsymb@j = \j
+\DeclareGenericCommand{\j}{\jmath}{\gsymb@j}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\lt}
+%    \begin{macrocode}
+\DeclareGenericCommand{\lt}{<}{\textless}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\gt}
+%    \begin{macrocode}
+\DeclareGenericCommand{\gt}{>}{\textgreater}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\backslash}
+%    \begin{macrocode}
+\let\gsymb@backslash = \backslash
+\DeclareGenericCommand{\backslash}{\gsymb@backslash}{\textbackslash}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\bullet}
+%    \begin{macrocode}
+\let\gsymb@bullet = \bullet
+\DeclareGenericCommand{\bullet}{\gsymb@bullet}{\textbullet}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\solidus}
+%   This is the default implementation --- if the \textsf{textcomp}
+%   option is used, this version will be replaced.
+%
+%    \begin{macrocode}
+\newcommand{\solidus}{/}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{\textsl{textcomp} Macros}
+%
+%  Declare the \texttt{textcomp} option and process options.
+%    \begin{macrocode}
+\newif\ifgsymb@textcomp
+
+\DeclareOption{textcomp}{
+  \gsymb@textcomptrue
+}
+\ProcessOptions\relax
+
+\ifgsymb@textcomp
+  \RequirePackage{textcomp}
+%    \end{macrocode}
+%
+% \texttt{texcomp} was requested. (Re)define symbol macros more generically.
+%
+% \begin{macro}{\div}
+%    \begin{macrocode}
+  \let\gsymb@div = \div
+  \DeclareGenericCommand{\div}{\gsymb@div}{\textdiv}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\minus}
+%    \begin{macrocode}
+  \DeclareGenericCommand{\minus}{-}{\textminus}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\neg}
+%    \begin{macrocode}
+  \let\gsymb@neg = \neg
+  \DeclareGenericCommand{\neg}{\gsymb@neg}{\textlnot}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\pm}
+%    \begin{macrocode}
+  \let\gsymb@pm = \pm
+  \DeclareGenericCommand{\pm}{\gsymb@pm}{\textpm}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\solidus}
+%    \begin{macrocode}
+  \DeclareGenericCommand{\solidus}{/}{\textfractionsolidus}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\surd}
+%    \begin{macrocode}
+  \let\gsymb@surd = \surd
+  \DeclareGenericCommand{\surd}{\gsymb@surd}{\textsurd}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\times}
+%    \begin{macrocode}
+  \let\gsymb@times = \times
+  \DeclareGenericCommand{\times}{\gsymb@times}{\texttimes}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\ast}
+%    \begin{macrocode}
+\let\gsymb@ast = \ast
+\DeclareGenericCommand{\ast}{\gsymb@ast}{\textasteriskcentered}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\cdot}
+%    \begin{macrocode}
+\let\gsymb@cdot = \cdot
+\DeclareGenericCommand{\cdot}{\gsymb@cdot}{\textperiodcentered}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\circ}
+%    \begin{macrocode}
+\let\gsymb@circ = \circ
+\DeclareGenericCommand{\circ}{\gsymb@circ}{\textopenbullet}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\mu}
+%    \begin{macrocode}
+\let\gsymb@mu = \mu
+\DeclareGenericCommand{\mu}{\gsymb@mu}{\textmu}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\uparrow}
+%    \begin{macrocode}
+\let\gsymb@uparrow = \uparrow
+\DeclareGenericCommand{\uparrow}{\gsymb@uparrow}{\textuparrow}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\downarrow}
+%    \begin{macrocode}
+\let\gsymb@downarrow = \downarrow
+\DeclareGenericCommand{\downarrow}{\gsymb@downarrow}{\textdownarrow}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leftarrow}
+%    \begin{macrocode}
+\let\gsymb@leftarrow = \leftarrow
+\DeclareGenericCommand{\leftarrow}{\gsymb@leftarrow}{\textleftarrow}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\rightarrow}
+%    \begin{macrocode}
+\let\gsymb@rightarrow = \rightarrow
+\DeclareGenericCommand{\rightarrow}{\gsymb@rightarrow}{\textrightarrow}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+\fi
+%    \end{macrocode}
+%
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{143}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
