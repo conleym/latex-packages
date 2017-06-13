@@ -81,13 +81,14 @@ Running "make install" installs the files in the local TeX tree.
 %<*driver>
 \ProvidesFile{overstrike.dtx}
 %</driver>
-%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<package>\RequirePackage{package, gcommand}
-%<package>\Package{overstrike}
 %<*package>
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\RequirePackage{package, gcommand}
+\Package{overstrike}
     [2005/08/30 v1.00 Typeset some text on top of some other text]
 %</package>
 %<*driver>
+\NormalWhitespace
 \documentclass{ltxdoc}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage[numbered]{hypdoc}

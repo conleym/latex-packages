@@ -81,12 +81,14 @@ Running "make install" installs the files in the local TeX tree.
 %<*driver>
 \ProvidesFile{defcommand.dtx}
 %</driver>
-%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<package>\ProvidesPackage{defcommand}
 %<*package>
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\RequirePackage{package}
+\Package{defcommand}
     [2017/06/10 v1.00 Define a macro, even if it's already defined]
 %</package>
 %<*driver>
+\NormalWhitespace
 \documentclass{ltxdoc}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage[numbered]{hypdoc}
