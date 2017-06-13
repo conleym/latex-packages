@@ -1,0 +1,251 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+gaccent --- Generic accents
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+gaccent --- Generic accents
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2017 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file gaccent.dtx and a Makefile.
+Running "make" generates the derived files README, gaccent.pdf and gaccent.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/gaccent}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/gaccent}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/gaccent}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{gaccent.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package, gcommand}
+%<package>\Package{gaccent}
+%<*package>
+    [2005/08/30 v1.00 Generic accents]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%
+%\title{\textsf{gaccent} --- Generic accents\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+% \begin{abstract}
+%   (Re)define math accent macros with generic versions that work in
+%   both text and math mode.
+% \end{abstract}
+%
+% \section{Usage}
+%
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\acute}
+%    \begin{macrocode}
+\let\gaccent@acute=\acute
+\DeclareGenericCommand{\acute}[1]{\gaccent@acute{#1}}{\' #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\bar}
+%    \begin{macrocode}
+\let\gaccent@bar=\bar
+\DeclareGenericCommand{\bar}[1]{\gaccent@bar{#1}}{\= #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\breve}
+%    \begin{macrocode}
+\let\gaccent@breve=\breve
+\DeclareGenericCommand{\breve}[1]{\gaccent@breve{#1}}{\u #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\check}
+%    \begin{macrocode}
+\let\gaccent@check=\check
+\DeclareGenericCommand{\check}[1]{\gaccent@check{#1}}{\v #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\ddot}
+%    \begin{macrocode}
+\let\gaccent@ddot=\ddot
+\DeclareGenericCommand{\ddot}[1]{\gaccent@ddot{#1}}{\" #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\grave}
+%    \begin{macrocode}
+\let\gaccent@grave=\grave
+\DeclareGenericCommand{\grave}[1]{\gaccent@grave{#1}}{\` #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\hat}
+%    \begin{macrocode}
+\let\gaccent@hat=\hat
+\DeclareGenericCommand{\hat}[1]{\gaccent@hat{#1}}{\^ #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\ring}
+%    \begin{macrocode}
+\let\gaccent@ring=\mathring
+\DeclareGenericCommand{\ring}[1]{\gaccent@ring{#1}}{\r #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\tilde}
+%    \begin{macrocode}
+\let\gaccent@tilde=\tilde
+\DeclareGenericCommand{\tilde}[1]{\gaccent@tilde{#1}}{\~ #1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\vec}
+% There's no text equivalent to |\vec|, so we need to use \texttt{amstext}
+% to render the argument to our |\vec| in text mode.
+%
+% Some people might prefer not to load \texttt{amstext}, so this is optional.
+%    \begin{macrocode}
+\newif\ifgaccent@vec
+
+\DeclareOption{vec}{\gaccent@vectrue}
+\ProcessOptions\relax
+
+\ifgaccent@vec
+
+  \let\gaccent@vec=\vec
+  \DeclareGenericCommand{\vec}[1]{\gaccent@vec{#1}}
+                                 {{\m@th$\gaccent@vec{\text{#1}}$}}
+  \RequirePackage{amstext}
+
+\fi
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{82}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:

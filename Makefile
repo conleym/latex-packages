@@ -4,7 +4,7 @@ OUTDIR=./out
 LATEX=latexmk -output-directory=$(OUTDIR)
 RM=rm
 
-PACKAGES=catcode package defcommand ifmm gcommand gbox gsymb pzc uniformmargins kern overstrike
+PACKAGES=catcode package defcommand ifmm gcommand gbox gsymb gaccent pzc uniformmargins kern overstrike
 
 
 all:
