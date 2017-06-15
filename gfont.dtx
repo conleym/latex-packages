@@ -1,0 +1,255 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+gfont --- Generic font selection commands
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+gfont --- Generic font selection commands
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2017 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file gfont.dtx and a Makefile.
+Running "make" generates the derived files README, gfont.pdf and gfont.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/gfont}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/gfont}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/gfont}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{gfont.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{gcommand}
+%<package>\Package{gfont}
+%<*package>
+    [2005/08/30 v1.00 Generic font selection commands]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%
+%\title{\textsf{gfont} --- Generic Font Selection Commands\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+% \begin{abstract}
+
+% \end{abstract}
+%
+% \section{Usage}
+%
+% \DescribeMacro{\gbf}
+%
+% Generic boldface.
+%
+% \DescribeMacro{\gfrak}
+%
+% Generic fraktur.
+%
+% \DescribeMacro{\git}
+%
+% Generic italics.
+%
+% \DescribeMacro{\gnormal}
+%
+% Generic normal.
+%
+% \DescribeMacro{\grm}
+%
+% Generic roman.
+%
+% \DescribeMacro{\gsc}
+%
+% Generic small caps.
+%
+% \DescribeMacro{\gsl}
+%
+% Generic slanted.
+%
+% \DescribeMacro{\gtt}
+%
+% Generic typewriter.
+%
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\gbf}
+%    \begin{macrocode}
+\DeclareGenericCommand{\gbf}[1]{\mathbf{#1}}{\textbf{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gfrak}
+%    \begin{macrocode}
+\DeclareGenericCommand{\gfrak}[1]{\mathfrak{#1}}{\textfrak{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\git}
+%    \begin{macrocode}
+\DeclareGenericCommand{\git}[1]{\mathit{#1}}{\textit{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gnormal}
+%    \begin{macrocode}
+\DeclareGenericCommand{\gnormal}[1]{\mathnormal{#1}}{\textnormal{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\grm}
+%    \begin{macrocode}
+\DeclareGenericCommand{\grm}[1]{\mathrm{#1}}{\textrm{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gsc}
+%    \begin{macrocode}
+\DeclareGenericCommand{\gsc}[1]{\mathsc{#1}}{\textsc{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gsl}
+%    \begin{macrocode}
+\DeclareGenericCommand{\gsl}[1]{\mathsl{#1}}{\textsl{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gtt}
+%    \begin{macrocode}
+\DeclareGenericCommand{\gtt}[1]{\mathtt{#1}}{\texttt{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\gfrak}
+% This one is optional, because users might not wish to load the \texttt{yfonts}
+% or \texttt{eufrak} packages.
+%    \begin{macrocode}
+\newif\ifgfont@frak
+\DeclareOption{frak}{\gfont@fraktrue}
+
+\ProcessOptions\relax
+
+\ifgfont@frak
+  \DeclareGenericCommand{\frak}[1]{\mathfrak{#1}}{\textfrak{#1}}
+  \RequirePackage{yfonts}
+  \RequirePackage{eufrak}
+\else
+  \relax
+\fi
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{49}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
