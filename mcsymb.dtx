@@ -1,0 +1,246 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+mcsymb --- Useful composite symbols
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+mcsymb --- Useful composite symbols
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2017 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file mcsymb.dtx and a Makefile.
+Running "make" generates the derived files README, mcsymb.pdf and mcsymb.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/mcsymb}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/mcsymb}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/mcsymb}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{mcsymb.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package, overstrike}
+%<package>\Package{mcsymb}
+%<*package>
+    [2005/08/30 v1.00 Useful composite symbols]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{amsmath}
+\usepackage{\jobname}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%
+%\title{\textsf{mcsymb} --- Useful Composite Symbols\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%\DoNotIndex{\mathop, \overstrike}
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+% \begin{abstract}
+
+% \end{abstract}
+%
+% \section{Usage}
+%
+% \DescribeMacro{\dotcup}
+%
+% Set union with a dot: $\dotcup$
+%
+% \DescribeMacro{\bigdotcup}
+%
+% Big version of |\dotcup|: $\bigdotcup$
+%
+% \DescribeMacro{\dotcap}
+%
+% Set intersection with a dot: $\dotcap$
+%
+% \DescribeMacro{\bigdotcap}
+%
+% Big version of |\dotcap|: $\bigdotcap$
+%
+% \DescribeMacro{\turnstyle}
+% \DescribeMacro{\rturnstyle}
+%
+% The turnstyle symbol: $\turnstyle$
+%
+% Unlike |\vdash| ($\vdash$), this is the same size as |\models|, so math
+% using both looks nice.
+%
+% \DescribeMacro{\lturnstyle}
+%
+% Reverse |\turnstyle|: $\lturnstyle$
+%
+% \DescribeMacro{\modelled}
+%
+% Reverse |\models|: $\modelled$
+%
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+%
+%
+%
+% \begin{macro}{\dotcup}
+% I think this looks better than the
+% \href{http://mirrors.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}
+%      {comprehensive \LaTeX\ symbol list's}
+% suggestion (|\mathop{\mathaccent\cdot\cup}|).
+% Compare foryourself:
+%  \begin{align}
+%    A &\dotcup B \label{mine}\\
+%    A &\mathop{\mathaccent\cdot\cup} B \label{theirs}
+%  \end{align}
+%  \eqref{mine} uses |\dotcup|, and \eqref{theirs} uses
+%  |\mathaccent|.
+%
+%    \begin{macrocode}
+\newcommand{\dotcup}{\mathop{\overstrike{\cup}{\cdot}}\nolimits}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\bigdotcup}
+%    \begin{macrocode}
+\newcommand{\bigdotcup}{\mathop{\overstrike{\bigcup}{\cdot}}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\dotcap}
+%    \begin{macrocode}
+\newcommand{\dotcap}{\mathop{\overstrike{\cap}{\cdot}}\nolimits}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\bigdotcap}
+%    \begin{macrocode}
+\newcommand{\bigdotcap}{\mathop{\overstrike{\bigcap}{\cdot}}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\turnstyle}
+%    \begin{macrocode}
+\newcommand{\turnstyle}{\mathrel|\joinrel\relbar}
+\newcommand{\rturnstyle}{\turnstyle}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lturnstyle}
+%    \begin{macrocode}
+\newcommand{\lturnstyle}{\relbar\joinrel\mathrel|}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\modelled}
+%    \begin{macrocode}
+\newcommand{\modelled}{=\joinrel\mathrel|}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
