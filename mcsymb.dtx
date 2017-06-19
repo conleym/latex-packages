@@ -149,6 +149,11 @@ Running "make install" installs the files in the local TeX tree.
 %
 % Reverse |\models|: $\modelled$
 %
+% \DescribeMacro{\twiddle}
+%
+% Unary |\sim|: $\twiddle$
+%
+%
 %
 % \section{Implementation}
 %
@@ -214,6 +219,11 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\twiddle}
+%    \begin{macrocode}
+\newcommand{\twiddle}{\mathord{\sim}}
+%    \end{macrocode}
+% \end{macro}
 %
 %    \begin{macrocode}
 \EndPackage
