@@ -91,7 +91,7 @@ Running "make install" installs the files in the local TeX tree.
 \documentclass{ltxdoc}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage[numbered]{hypdoc}
-\usepackage{amsmath}
+\usepackage{amsmath, fancyvrb}
 \usepackage{\jobname}
 \begin{document}
   \DocInput{\jobname.dtx}
@@ -151,7 +151,15 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeMacro{\twiddle}
 %
-% Unary |\sim|: $\twiddle$
+% \SaveVerb{verbsim}|$\sim A$|
+% \SaveVerb{verbtwiddle}|$\twiddle A$|
+%
+% Unary |\sim|: $\twiddle$. For comparison:
+% \begin{align*}
+%     \text{\UseVerb{verbsim}}     && \sim A     \\
+%     \text{\UseVerb{verbtwiddle}} && \twiddle A
+% \end{align*}
+%
 %
 %
 %
@@ -165,17 +173,18 @@ Running "make install" installs the files in the local TeX tree.
 %
 %
 % \begin{macro}{\dotcup}
+% \SaveVerb{verbaccent}|$A \mathop{\mathaccent\cdot\cup} B$|
+% \SaveVerb{verbdotcup}|$A \dotcup B|
+% \newcommand{\altdotcup}{\mathop{\mathaccent\cdot\cup}}
 % I think this looks better than the
 % \href{http://mirrors.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}
 %      {comprehensive \LaTeX\ symbol list's}
 % suggestion (|\mathop{\mathaccent\cdot\cup}|).
 % Compare foryourself:
-%  \begin{align}
-%    A &\dotcup B \label{mine}\\
-%    A &\mathop{\mathaccent\cdot\cup} B \label{theirs}
-%  \end{align}
-%  \eqref{mine} uses |\dotcup|, and \eqref{theirs} uses
-%  |\mathaccent|.
+%  \begin{align*}
+%      \text{\UseVerb{verbdotcup}} && A & \dotcup B \\
+%      \text{\UseVerb{verbaccent}} && A & \altdotcup B
+%  \end{align*}
 %
 %    \begin{macrocode}
 \newcommand{\dotcup}{\mathop{\overstrike{\cup}{\cdot}}\nolimits}
