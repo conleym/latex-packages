@@ -192,6 +192,13 @@ Running "make install" installs the files in the local TeX tree.
 % and newlines, and lets it know that nothing further in the text file
 % should be processed.
 %
+% \DescribeMacro{\IfLaTeXLater}
+%
+% |\IfLaTeXLater|\marg{release date}{\marg{a}}{\marg{b}}
+%
+% Expands to \meta{a} if the \LaTeX\ release in use is at least as new
+% as \meta{release date}, \meta{b} otherwise.
+%
 %
 % \section{Implementation}
 %
@@ -296,13 +303,24 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\IfLaTeXLater}
+% This is a straightforward use of |\@ifl@t@r| from
+% \href{https://www.ctan.org/tex-archive/macros/latex/base/ltclass.dtx}{ltclass.dtx}.
+%    \begin{macrocode}
+\newcommand\IfLaTeXLater{\@ifl@t@r\fmtversion}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%
 %    \begin{macrocode}
 \endinput
 %</package>
 %    \end{macrocode}
 %
 %
-% \CheckSum{38}
+% \CheckSum{42}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
