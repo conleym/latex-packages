@@ -160,6 +160,8 @@ Running "make install" installs the files in the local TeX tree.
 %     \text{\UseVerb{verbtwiddle}} && \twiddle A
 % \end{align*}
 %
+% \DescribeMacro{\To}
+% $\To$ $\to$
 %
 %
 %
@@ -233,6 +235,26 @@ Running "make install" installs the files in the local TeX tree.
 \newcommand{\twiddle}{\mathord{\sim}}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{\To}
+%    \begin{macrocode}
+\newcommand{\To}{
+  \mathrel{
+    \vcenter{
+      \offinterlineskip
+      \hbox{\m@th$\to$}
+      \vskip-.05ex
+      \hbox{\m@th$\to$}
+    }
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%
+%
 %
 %    \begin{macrocode}
 \EndPackage
