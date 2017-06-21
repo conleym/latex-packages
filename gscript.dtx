@@ -81,11 +81,11 @@ Running "make install" installs the files in the local TeX tree.
 %<*driver>
 \ProvidesFile{gscript.dtx}
 %</driver>
-%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\NeedsTeXFormat{LaTeX2e}[2015/01/01]
 %<package>\RequirePackage{package, catcode, gcommand}
 %<package>\Package{gscript}
 %<*package>
-    [2005/08/30 v1.00 Generic superscripts and subscripts]
+    [2017/06/21 v1.01 Generic superscripts and subscripts]
 %</package>
 %<*driver>
 \documentclass{ltxdoc}
@@ -137,28 +137,11 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\textsubscript}
-%   \begin{macrocode}
-\DeclareRobustCommand*\textsubscript[1]{
-  \gscript@textsubscript{\selectfont#1}
-}
-%    \end{macrocode}
-% \end{macro}
-%
-%
-% \begin{macro}{\@textsubscript}
-%    \begin{macrocode}
-\newcommand{\gscript@textsubscript}[1]{{
-  \m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}
-}}
-%    \end{macrocode}
-% \end{macro}
-%
-%
 % \begin{macro}{\subscript}
 %    \begin{macrocode}
 \DeclareGenericCommand{\subscript}[1]{_{#1}}{\textsubscript{#1}}
 %    \end{macrocode}
+% \changes{v1.01}{2017/06/21}{Use built-in |\textsubscript| rather than implementing our own}
 % \end{macro}
 %
 %
