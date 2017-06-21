@@ -93,22 +93,19 @@ Running "make install" installs the files in the local TeX tree.
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage[numbered]{hypdoc}
 \usepackage{gscript}
+\usepackage{amsmath}
 \usepackage{\jobname}
 \begin{document}
 
-\newcommand{\nro}{nr\subscript{1}}
-\newcommand{\nrt}{nr\subscript{2}}
+\newcommand{\nr}{nr}
+\newcommand{\nro}{\nr\subscript{1}}
+\newcommand{\nrt}{\nr\subscript{2}}
 \newcommand{\rp}{r}
-\newcommand{\ro}{r\subscript{1}}
-\newcommand{\rt}{r\subscript{2}}
-
-
-\newcommand{\opresult}[4]{
-  #4 $\leftarrow$ #2 #1 #3
-}
+\newcommand{\ro}{\rp\subscript{1}}
+\newcommand{\rt}{\rp\subscript{2}}
 
 \newcommand{\result}[1]{
-  $\ro \leftarrow \nro #1 \nrt$
+  $\meta{\rp} \leftarrow \meta{\nro} #1 \meta{\nrt}$
 }
 
   \DocInput{\jobname.dtx}
@@ -141,58 +138,90 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \section{Usage}
 %
-% \subsection{Instruction Set}
 %
 % In the descriptions below, \nro\ and \nrt\ may be numeric registers or
 % constants. \rp, \ro\ and \rt\ must be registers.
 %
 % \DescribeMacro{\rld}
 %
-% |\rld|\marg{nro}\marg{rp}: $\rp \leftarrow \nro$
+% |\rld|\marg{\nro}\marg{\rp}: $\meta{\rp} \leftarrow \meta{\nro}$
 %
 % Assign \nro\ to the register \rp.
 %
 %
-% \subsubsection{Primitive Instructions}
+% \subsection{Primitive Instructions}
 %
 % These are fairly self-explanatory.  Each macro takes three
 % arguments.  The first and second are not modified and may be
 % registers or constants.  The result is stored in the third, which
 % must be a register.  In short, the syntax may be summarized as
-% |\primitivemacro|\marg{\nro}\marg{\nrt}\marg{\ro}.
+% |\primitivemacro|\marg{\nro}\marg{\nrt}\marg{\rp}.
 %
 % \DescribeMacro{\radd}
 %
-% |\radd|\marg{\nro}\marg{\nrt}\marg{\ro}: \result{+}
+% |\radd|\marg{\nro}\marg{\nrt}\marg{\rp}: \result{+}
 %
 % \DescribeMacro{\rsub}
 %
-% |\rsub|\marg{\nro}\marg{\nrt}\marg{\ro}: \result{-}
+% |\rsub|\marg{\nro}\marg{\nrt}\marg{\rp}: \result{-}
 %
 % \DescribeMacro{\rmul}
 %
-% |\rmul|\marg{\nro}\marg{\nrt}\marg{\ro}: \result{\times}
+% |\rmul|\marg{\nro}\marg{\nrt}\marg{\rp}: \result{\times}
 %
 % \DescribeMacro{\rdiv}
 %
-% |\rdiv|\marg{\nro}\marg{\nrt}\marg{\ro}: \result{\div}
+% |\rdiv|\marg{\nro}\marg{\nrt}\marg{\rp}: \result{\div}
 %
 %
-% \subsubsection{Derived Instructions}
+% \subsection{Derived Instructions}
 %
 % \DescribeMacro{\rmod}
 %
-% \DescribeMacro{\rand}
+% |\rmod|\marg{\ro}\marg{\nr}\marg{\rt}: $\meta{\rt} \leftarrow \meta{\nr} \bmod \meta{\ro}$
 %
-% \DescribeMacro{\ror}
+% The result of |\rmod| is always positive, e.g., the value of |\count1| will be
+% 2 when the following code is executed:
+% \begin{verbatim}
+% \rld{5}{\count0}
+% \rmod{\count0}{-3}{\count1}
+% \end{verbatim}
 %
 % \DescribeMacro{\rmax}
 %
-% |\rmax|\marg{\nro}\marg{\nrt}{\ro}: $\ro \leftarrow \max(\nro, \nrt)$
+% |\rmax|\marg{\nro}\marg{\nrt}\marg{\rp}: $\meta{\rp} \leftarrow \max(\meta{\nro}, \meta{\nrt})$
 %
 % \DescribeMacro{\rmin}
 %
-% |\rmin|\marg{\nro}\marg{\nrt}{\ro}: $\ro \leftarrow \min(\nro, \nrt)$
+% |\rmin|\marg{\nro}\marg{\nrt}\marg{\rp}: $\meta{\rp} \leftarrow \min(\meta{\nro}, \meta{\nrt})$
+%
+% \subsubsection{Boolean Operations}
+%
+% For purposes of these operations, the number 0 is considered false,
+% and all other values are considered true.
+%
+% \DescribeMacro{\rand}
+%
+% |\rand|\marg{\nro}\marg{\nr2}\marg{\rp}:
+% $
+%   \meta{\rp} \leftarrow
+%   \begin{cases}
+%     \meta{\nro}, & \text{if } \meta{\nro} = 0 \\
+%     \meta{\nrt}, & \text{otherwise}
+%   \end{cases}
+% $
+%
+% \DescribeMacro{\ror}
+%
+% |\ror|\marg{\nro}\marg{\nr2}\marg{\rp}:
+% $
+%   \meta{\rp} \leftarrow
+%   \begin{cases}
+%     \meta{\nrt}, & \text{if } \meta{\nro} = 0 \\
+%     \meta{\nro}, & \text{otherwise}
+%   \end{cases}
+% $
+%
 %
 %
 % \section{Implementation}
@@ -351,7 +380,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 %
 %
-% \CheckSum{0}
+% \CheckSum{44}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
