@@ -82,7 +82,7 @@ Running "make install" installs the files in the local TeX tree.
 \ProvidesFile{mcsymb.dtx}
 %</driver>
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<package>\RequirePackage{package, overstrike}
+%<package>\RequirePackage{package, gbox, overstrike, regmath, localloc}
 %<package>\Package{mcsymb}
 %<*package>
     [2005/08/30 v1.00 Useful composite symbols]
@@ -160,6 +160,14 @@ Running "make install" installs the files in the local TeX tree.
 %     \text{\UseVerb{verbtwiddle}} && \twiddle A
 % \end{align*}
 %
+% \DescribeMacro{\uint}
+%
+% Upper integral symbol: $\uint_a^b$
+%
+% \DescribeMacro{\lint}
+%
+% Lower integral symbol: $\lint_a^b$
+%
 %
 %
 % \section{Implementation}
@@ -233,7 +241,51 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\uint}
+%    \begin{macrocode}
+\newcommand{\uint}{{
+  \outermathstyle{
+    \lnewbox\intbox
+    \lnewdimen\intwd
+
+    \setbox\intbox=\hbox{\m@th$\int$}
+    \intwd=\wd\intbox
+    \rdiv{\intwd}{2}{\intwd}
+
+     \vbox{
+%    \end{macrocode}
 %
+% Setting |\baselineskip| to 1pt causes \TeX\ to put 1pt of glue
+% between the |hrule| and the integral symbol.
+%
+%    \begin{macrocode}
+        \baselineskip=1pt
+        \moveright \intwd
+        \vbox{\hrule width \intwd}
+        \hbox{\m@th$\int$}}
+}}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\lint}
+%    \begin{macrocode}
+\newcommand{\lint}{{
+    \outermathstyle{
+      \lnewbox\intbox
+      \lnewdimen\intwd
+
+      \setbox\intbox=\hbox{\m@th$\int$}
+      \intwd=\wd\intbox
+      \rdiv{\intwd}{2}{\intwd}
+
+      \vtop{
+        \hbox{\m@th$\int$}
+        \vskip 1pt
+        \hrule width \intwd}
+}}}
+%    \end{macrocode}
+% \end{macro}
 %
 %
 %

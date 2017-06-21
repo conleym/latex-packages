@@ -133,13 +133,13 @@ Running "make install" installs the files in the local TeX tree.
 
 %    \end{macrocode}
 %
-% \begin{macro}{\gbox@outermathstyle}
+% \begin{macro}{\outermathstyle}
 %
 % A simple application of |\mathchoice|, using |\everymath| to restore
 % the current style in subsequent math modes.
 %
 %    \begin{macrocode}
-\newcommand{\gbox@outermathstyle}[1]{
+\newcommand{\outermathstyle}[1]{
   \mathchoice{\everymath = {\displaystyle} #1}
              {#1}
              {\everymath = {\scriptstyle} #1}
@@ -153,12 +153,12 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
 \newcommand{\gbox}[1]{
 %    \end{macrocode}
-% We're in math mode. Grab the current math style with |\gbox@outermathstyle| in
+% We're in math mode. Grab the current math style with |\outermathstyle| in
 % a group (to avoid changing any existing value it may have), then create an
 % mbox having |\mathsurround=0| (to avoid typesetting any nonzero value
 % redundantly inside the mbox).
 %    \begin{macrocode}
-    \ifmm{\begingroup\gbox@outermathstyle{\mbox{\m@th$#1$}}\endgroup}
+    \ifmm{\begingroup\outermathstyle{\mbox{\m@th$#1$}}\endgroup}
 %    \end{macrocode}
 % If we're not in math mode, a gbox is just an mbox.
 %    \begin{macrocode}
