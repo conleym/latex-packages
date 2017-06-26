@@ -88,6 +88,7 @@ Running "make install" installs the files in the local TeX tree.
     [2005/08/30 v1.00 Useful composite symbols]
 %</package>
 %<*driver>
+\NormalWhitespace
 \documentclass{ltxdoc}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage[numbered]{hypdoc}
@@ -162,11 +163,11 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeMacro{\uint}
 %
-% Upper integral symbol: $\uint_a^b$
+% Upper integral symbol. |$\uint_a^b$|: $\uint_a^b$
 %
 % \DescribeMacro{\lint}
 %
-% Lower integral symbol: $\lint_a^b$
+% Lower integral symbol. |$\lint_a^b$|: $\lint_a^b$
 %
 %
 %
@@ -194,50 +195,66 @@ Running "make install" installs the files in the local TeX tree.
 %  \end{align*}
 %
 %    \begin{macrocode}
-\newcommand{\dotcup}{\mathop{\overstrike{\cup}{\cdot}}\nolimits}
+\newcommand{\dotcup}{
+  \mathop{\overstrike{\cup}{\cdot}}\nolimits
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\bigdotcup}
 %    \begin{macrocode}
-\newcommand{\bigdotcup}{\mathop{\overstrike{\bigcup}{\cdot}}}
+\newcommand{\bigdotcup}{
+  \mathop{\overstrike{\bigcup}{\cdot}}
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\dotcap}
 %    \begin{macrocode}
-\newcommand{\dotcap}{\mathop{\overstrike{\cap}{\cdot}}\nolimits}
+\newcommand{\dotcap}{
+  \mathop{\overstrike{\cap}{\cdot}}\nolimits
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\bigdotcap}
 %    \begin{macrocode}
-\newcommand{\bigdotcap}{\mathop{\overstrike{\bigcap}{\cdot}}}
+\newcommand{\bigdotcap}{
+  \mathop{\overstrike{\bigcap}{\cdot}}
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\turnstyle}
 %    \begin{macrocode}
-\newcommand{\turnstyle}{\mathrel|\joinrel\relbar}
+\newcommand{\turnstyle}{
+  \mathrel|\joinrel\relbar
+}
 \newcommand{\rturnstyle}{\turnstyle}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\lturnstyle}
 %    \begin{macrocode}
-\newcommand{\lturnstyle}{\relbar\joinrel\mathrel|}
+\newcommand{\lturnstyle}{
+  \relbar\joinrel\mathrel|
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\modelled}
 %    \begin{macrocode}
-\newcommand{\modelled}{=\joinrel\mathrel|}
+\newcommand{\modelled}{
+  =\joinrel\mathrel|
+}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\twiddle}
 %    \begin{macrocode}
-\newcommand{\twiddle}{\mathord{\sim}}
+\newcommand{\twiddle}{
+  \mathord{\sim}
+}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -262,7 +279,7 @@ Running "make install" installs the files in the local TeX tree.
         \baselineskip=1pt
         \moveright \intwd
         \vbox{\hrule width \intwd}
-        \hbox{\m@th$\int$}}
+        \box\intbox}
 }}}
 %    \end{macrocode}
 % \end{macro}
@@ -280,7 +297,7 @@ Running "make install" installs the files in the local TeX tree.
       \rdiv{\intwd}{2}{\intwd}
 
       \vtop{
-        \hbox{\m@th$\int$}
+        \box\intbox
         \vskip 1pt
         \hrule width \intwd}
 }}}
@@ -297,7 +314,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 %
 %
-% \CheckSum{101}
+% \CheckSum{99}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
