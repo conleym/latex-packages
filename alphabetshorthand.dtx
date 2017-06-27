@@ -1,0 +1,248 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+alphabetshorthand ---  Simple method for declaring shorthand commands
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+alphabetshorthand --- Generic font selection commands
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2017 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file alphabetshorthand.dtx and a Makefile.
+Running "make" generates the derived files README, alphabetshorthand.pdf and alphabetshorthand.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/alphabetshorthand}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/alphabetshorthand}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/alphabetshorthand}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{alphabetshorthand.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package, ifthen, regmath}
+%<package>\Package{alphabetshorthand}
+%<*package>
+    [2005/08/30 v1.00 Generic font selection commands]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{amsfonts, amstext}
+\usepackage{\jobname}
+\begin{document}
+  \NormalWhitespace
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%
+% \title{\textsf{alphabetshorthand} --- Declare Shorthand Commands
+%  \thanks{This file describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+% \begin{abstract}
+
+% \end{abstract}
+%
+% \section{Usage}
+%
+% \DescribeMacro{\DeclareAlphabetShorthand}
+%
+% |\DeclareAlphabetShorthand|\marg{firstletter}\marg{lastletter}\marg{command}\marg{prefix}\marg{suffix}
+%
+% Declare a series of shorthand commands, one for each letter in the
+% range [\meta{firstletter}, \meta{lastletter}]. \meta{firstletter}
+% and \meta{lastletter} must be both be ASCII letters, and must both
+% be either capital or lowercase. For example, assuming the
+% \texttt{amsfonts} package is loaded, one can define commands for
+% each blackboard bold letter as follows:
+%
+% \DeclareAlphabetShorthand{A}{Z}{\mathbb}{s}{bb}
+% \[
+% |\DeclareAlphabetShorthand{A}{Z}{\mathbb}{s}{bb}|
+% \]
+% And |$\sAbb, \sBbb, ..., \sZbb$| will result in: $\sAbb, \sBbb, ..., \sZbb$
+%
+% Both prefix and suffix are optional (empty braces can be given to specify none), as in:
+% \[
+%   |\DeclareAlphabetShorthand{A}{C}{\mathcal}{}{cal}|,
+% \]
+% which creates |\Acal|, |\Bcal|, and |\Ccal| and
+% \[
+% |\DeclareAlphabetShorthand{A}{C}{\mathcal}{cal}{}|,
+% \]
+% which creates |\calA|, |\calB|, and |\calC|.
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\DeclareAlphabetShorthand}
+%    \begin{macrocode}
+\newcommand{\DeclareAlphabetShorthand}[5]{
+%    \end{macrocode}
+% Everything happens in a group so we don't stomp on anybody's registers.
+%    \begin{macrocode}
+{
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+    \rld{`#1}{\count0}
+    \rld{`#2}{\count1}
+    \countinc{\count1}
+
+    \def\alphabetshorthand@cmd##1{#3{##1}}
+    \def\alphabetshorthand@name##1{#4##1#5}
+
+    \ifthenelse{\count0 < `a \or \count0 > `z}
+    {
+      \ifthenelse{\count0 < `A \or \count0 > `Z}
+                 {\alphabetshorthand@errmsg{#1}{#2}}
+                 {
+                   \rsub{\count0}{`A}{\count0}
+                   \rsub{\count1}{`A}{\count1}
+                   \alphabetshorthand@dispatch{\@Alph}
+                                              {\alphabetshorthand@cmd}
+                                              {\alphabetshorthand@name}
+                 }
+    }
+    {
+      \rsub{\count0}{`a}{\count0}
+      \rsub{\count1}{`a}{\count1}
+      \alphabetshorthand@dispatch{\@alph}
+                                 {\alphabetshorthand@cmd}
+                                 {\alphabetshorthand@name}
+    }
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\alphabetshorthand@dispatch}
+%    \begin{macrocode}
+\newcommand{\alphabetshorthand@dispatch}[3]{
+  \loop\ifnum\count0 < \count1
+    \countinc{\count0}
+    \expandafter\xdef \csname#3{#1{\count0}}\endcsname
+      { \expandafter \noexpand #2{#1{\count0}} }
+  \repeat
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\alphabetshorthand@errmsg}
+% Need to switch back to normal whitespace mode to preserve whitespace in the error message.
+%    \begin{macrocode}
+\NormalWhitespace
+\newcommand{\alphabetshorthand@errmsg}[2]
+{\errmessage{Some characters in #1 -- #2 are out of range.}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%    \begin{macrocode}
+\endinput
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{63}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
