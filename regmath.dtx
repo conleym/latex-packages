@@ -82,7 +82,7 @@ Running "make install" installs the files in the local TeX tree.
 \ProvidesFile{regmath.dtx}
 %</driver>
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<package>\NeedsPackage{package}
+%<package>\RequirePackage{package}
 %<package>\Package{regmath}
 %<*package>
     [2005/08/30 v1.00 Macros for TeX assembly programming]
@@ -222,6 +222,20 @@ Running "make install" installs the files in the local TeX tree.
 %   \end{cases}
 % $
 %
+% \subsubsection{Type-specific Macros}
+%
+% \DescribeMacro{\countinc}
+%
+% |\countinc|\marg{\rp}: $\meta{\rp} \leftarrow \meta{\rp} + 1$
+%
+% Increment the count register \meta{\rp}.
+%
+% \DescribeMacro{\countdec}
+%
+% |\countdec|\marg{\rp}: $\meta{\rp} \leftarrow \meta{\rp} - 1$
+%
+% Decrement the count register \meta{\rp}.
+%
 %
 %
 % \section{Implementation}
@@ -311,9 +325,12 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{macro}{\rand}
 %   \begin{macrocode}
 \newcommand{\rand}[3]{
-  \ifthenelse{#1 = 0}
-             {#3 = #1}
-             {#3 = #2}
+  \ifnum #1 = 0
+    #3 = #1
+  \else
+    #3 = #2
+  \fi
+  \relax
 }
 %    \end{macrocode}
 % \end{macro}
@@ -322,9 +339,12 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{macro}{\ror}
 %    \begin{macrocode}
 \newcommand{\ror}[3]{
-  \ifthenelse{#1 = 0}
-             {#3 = #2}
-             {#3 = #1}
+  \ifnum #1 = 0
+    #3 = #2
+  \else
+    #3 = #1
+  \fi
+  \relax
 }
 %    \end{macrocode}
 % \end{macro}
@@ -333,9 +353,12 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{macro}{\rmax}
 %    \begin{macrocode}
 \newcommand{\rmax}[3]{
-  \ifthenelse{#1 > #2}
-             {#3 = #1}
-             {#3 = #2}
+  \ifnum #1 > #2
+    #3 = #1
+  \else
+    #3 = #2
+  \fi
+  \relax
 }
 %    \end{macrocode}
 % \end{macro}
@@ -344,9 +367,12 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{macro}{\rmin}
 %    \begin{macrocode}
 \newcommand{\rmin}[3]{
-  \ifthenelse{#1 < #2}
-             {#3 = #1}
-             {#3 = #2}
+  \ifnum #1 < #2
+    #3 = #1
+  \else
+    #3 = #2
+  \fi
+  \relax
 }
 %    \end{macrocode}
 % \end{macro}
@@ -380,7 +406,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 %
 %
-% \CheckSum{44}
+% \CheckSum{56}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
