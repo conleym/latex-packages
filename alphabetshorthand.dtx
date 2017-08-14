@@ -82,7 +82,7 @@ Running "make install" installs the files in the local TeX tree.
 \ProvidesFile{alphabetshorthand.dtx}
 %</driver>
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<package>\RequirePackage{package, ifthen, regmath}
+%<package>\RequirePackage{package, etoolbox, regmath}
 %<package>\Package{alphabetshorthand}
 %<*package>
     [2005/08/30 v1.00 Generic font selection commands]
@@ -164,36 +164,73 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
     \rld{`#1}{\count0}
     \rld{`#2}{\count1}
-    \countinc{\count1}
 
+    \def\alphabetshorthand@err{\alphabetshorthand@errmsg{#1}{#2}}
     \def\alphabetshorthand@cmd##1{#3{##1}}
     \def\alphabetshorthand@name##1{#4##1#5}
 
-    \ifthenelse{\count0 < `a \or \count0 > `z}
-    {
-      \ifthenelse{\count0 < `A \or \count0 > `Z}
-                 {\alphabetshorthand@errmsg{#1}{#2}}
-                 {
-                   \rsub{\count0}{`A}{\count0}
-                   \rsub{\count1}{`A}{\count1}
-                   \alphabetshorthand@dispatch{\@Alph}
-                                              {\alphabetshorthand@cmd}
-                                              {\alphabetshorthand@name}
-                 }
-    }
-    {
-      \rsub{\count0}{`a}{\count0}
-      \rsub{\count1}{`a}{\count1}
-      \alphabetshorthand@dispatch{\@alph}
-                                 {\alphabetshorthand@cmd}
-                                 {\alphabetshorthand@name}
+
+    \ifnumgreater{\count0}{\count1}{
+      \alphabetshorthand@err
+    }{
+      \alphabetshorthand@inrange{`a}{`z}{
+        \def\alphabetshorthand@sub{`a}
+        \def\alphabetshorthand@alph{\@alph}
+        \alphabetshorthand@doit
+      }{
+        \alphabetshorthand@inrange{`A}{`Z}{
+          \def\alphabetshorthand@sub{`A}
+          \def\alphabetshorthand@alph{\@Alph}
+          \alphabetshorthand@doit
+        }{
+          \alphabetshorthand@err
+        }
+      }
     }
 }}
 %    \end{macrocode}
 % \end{macro}
 %
 %
+% \begin{macro}{\alphabetshorthand@inrange}
+% |\alphabetshorthand@inrange|\marg{a}\marg{b}{\marg{yes}}\marg{no}
+%
+% Expands to \meta{yes} if \meta{a} <= |\count{0,1}| <= \meta{b}. Expands to \meta{no} otherwise.
+%
+%    \begin{macrocode}
+\newcommand{\alphabetshorthand@inrange}[4]{
+  \ifboolexpr{
+    not test {\ifnumless{\count0}{#1}} and   % c0 >= #1
+    not test {\ifnumless{#2}{\count0}} and   % c0 <= #2
+    not test {\ifnumless{\count1}{#1}} and   % same for c1
+    not test {\ifnumless{#2}{\count1}}
+  }{#3}{#4}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\alphabetshorthand@doit}
+%
+% Do some register math and define the macros.
+%
+%    \begin{macrocode}
+\newcommand{\alphabetshorthand@doit}[0]{
+  \rsub{\count0}{\alphabetshorthand@sub}{\count0}
+  \rsub{\count1}{\alphabetshorthand@sub}{\count1}
+  \countinc{\count1}
+  \alphabetshorthand@dispatch{\alphabetshorthand@alph}
+                             {\alphabetshorthand@cmd}
+                             {\alphabetshorthand@name}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
 % \begin{macro}{\alphabetshorthand@dispatch}
+%
+% This is where the macros are actually defined.
+%
 %    \begin{macrocode}
 \newcommand{\alphabetshorthand@dispatch}[3]{
   \loop\ifnum\count0 < \count1
@@ -207,9 +244,14 @@ Running "make install" installs the files in the local TeX tree.
 %
 %
 % \begin{macro}{\alphabetshorthand@errmsg}
-% Need to switch back to normal whitespace mode to preserve whitespace in the error message.
+%
+% Error message to send when arguments are out of range.
+%
 %    \begin{macrocode}
 \NormalWhitespace
+%    \end{macrocode}
+%  Need to switch back to normal whitespace mode to preserve whitespace in the error message.
+%    \begin{macrocode}
 \newcommand{\alphabetshorthand@errmsg}[2]
 {\errmessage{Some characters in #1 -- #2 are out of range.}}
 %    \end{macrocode}
@@ -223,7 +265,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 %
 %
-% \CheckSum{63}
+% \CheckSum{81}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
