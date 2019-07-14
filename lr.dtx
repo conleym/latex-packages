@@ -1,0 +1,515 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+lr --- Deliminter-related macros
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+lr --- Deliminter-related macros
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2005 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file lr.dtx and a Makefile.
+Running "make" generates the derived files README, lr.pdf and lr.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/lr}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/lr}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/lr}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{lr.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package}
+%<package>\Package{lr}
+%<*package>
+    [2005/08/30 v1.00 Deliminter-related macros]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \DoNotIndex{\newcommand,\newenvironment}
+%
+%\title{\textsf{lr} --- Deliminter-related macros\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+% \begin{abstract}
+% The \textsf{lr} package contains macros designed to make dealing
+% with delimiters simple.  First, macros are provided to automate size
+% matching, so you don't have to worry about matching \verb!\Bigr!
+% with \verb!\Bigl! or \verb!\right! with \verb!\left!, for example.
+% Also available are macros that automatically match left and right
+% delimiters (e.g., \verb!\langle! and \verb!\rangle!).
+% \end{abstract}
+%
+% \section{Usage}
+%
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+%
+% \subsection{Supplementary Delimiter Definitions}
+%
+% We need to define these so we can use all available delimiters with
+% \verb!\lrmatch!.
+%
+% \begin{macro}{\lslash}
+%    \begin{macrocode}
+\newcommand{\lslash}{/}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\rslash}
+%    \begin{macrocode}
+\newcommand{\rslash}{\backslash}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lparen}
+%    \begin{macrocode}
+\newcommand{\lparen}{(}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lparen}
+%    \begin{macrocode}
+\newcommand{\rparen}{)}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Macros for Delimiting Mathematical Formulae}
+%
+% \begin{macro}{\lr@ifdefault}
+%   This just checks to see if \#1 is one of the ``default'' sizes:
+%   left, middle, or right.  If any of these are given, it expands to
+%   \#2.  Otherwise, expands to \#3.
+%
+%    \begin{macrocode}
+\newcommand{\lr@ifdefault}[3]{
+    \newif\iflr@check
+
+    \def\lr@one{#1}
+    \def\lr@L{left}
+    \def\lr@M{middle}
+    \def\lr@R{right}
+
+    \ifx\lr@one\lr@R \lr@checktrue \else
+    \ifx\lr@one\lr@L \lr@checktrue \else
+    \ifx\lr@one\lr@M \lr@checktrue \fi \fi \fi
+%    \end{macrocode}
+%
+% The \verb!\relax! is necessary here --- without it, various macros
+% give mysterious errors inside the align environment (and probably
+% other places, too).
+%
+%    \begin{macrocode}
+    \iflr@check\relax
+       \def\lr@next{#2}
+    \else
+       \def\lr@next{#3}
+    \fi
+
+    \lr@next
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\lr@lrsize}
+%   Sets up \verb!\lr@right! and \verb!\lr@left!.
+%
+%    \begin{macrocode}
+\newcommand{\lr@lrsize}[1]{
+  \lr@ifdefault{#1}
+               {
+                 \let\lr@right=\right
+                 \let\lr@left=\left
+               }
+               {
+                 \def\lr@right{\csname #1r \endcsname}
+                 \def\lr@left{\csname #1l \endcsname}
+               }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\lr@lrmsize}
+%   Sets up \verb!\lr@middle!, then calls \verb!\lr@lrsize! to set up
+%   \verb!\lr@left! and \verb!\lr@right!.
+%
+%    \begin{macrocode}
+\newcommand{\lr@lrmsize}[1]{
+  \lr@ifdefault{#1}
+               {
+                 \let\lr@middle=\middle
+                 \let\lr@left=\left
+                 \let\lr@right=\right
+               }
+               {
+                 \def\lr@middle{\csname #1m \endcsname}
+                 \lr@lrsize{#1}
+               }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\lr@impl}
+%    \begin{macrocode}
+\newcommand{\lr@impl}[4]{
+  \@ifnextchar[{#4{#1}{#2}{#3}}{#4{#1}{#2}{#3}[#2]}%]
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{\lr@lrpair}
+%    \begin{macrocode}
+\def\lr@lrpair#1#2#3[#4]{{
+  \edef\lr@ldelim{\csname \makeleftdelimiter{#2} \endcsname}
+  \edef\lr@rdelim{\csname \makerightdelimiter{#4} \endcsname}
+  \lr@delimit{#1}{\lr@ldelim}{#3}[\lr@rdelim]
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\lr@delimit}
+%    \begin{macrocode}
+\def\lr@delimit#1#2#3[#4]{{
+  \lr@lrsize{#1}
+  \lr@left #2
+  #3
+  \lr@right #4
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makeleftdelimiter}
+%    \begin{macrocode}
+\newcommand{\makeleftdelimiter}[1]{l#1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\makerightdelimiter}
+%    \begin{macrocode}
+\newcommand{\makerightdelimiter}[1]{r#1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\lrpair}
+%    \begin{macrocode}
+\newcommand{\lrpair}[3][right]{
+  \lr@impl{#1}{#2}{#3}{\lr@lrpair}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\delimit}
+%    \begin{macrocode}
+\newcommand{\delimit}[3][right]{
+  \lr@impl{#1}{#2}{#3}{\lr@delimit}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Shortcuts for Common Delimiters}
+%
+% \begin{macro}{\abs}
+%    \begin{macrocode}
+\newcommand{\abs}[2][right]{\delimit[#1]{\vert}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\norm}
+%    \begin{macrocode}
+\newcommand{\norm}[2][right]{\delimit[#1]{\Vert}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\set}
+%    \begin{macrocode}
+\newcommand{\set}[2][right]{\lrpair[#1]{brace}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ceiling}
+%    \begin{macrocode}
+\newcommand{\ceiling}[2][right]{\lrpair[#1]{ceil}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\floor}
+%    \begin{macrocode}
+\newcommand{\floor}[2][right]{\lrpair[#1]{floor}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\parens}
+%    \begin{macrocode}
+\newcommand{\parens}[2][right]{\lrpair[#1]{paren}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\brackets}
+%    \begin{macrocode}
+\newcommand{\brackets}[2][right]{\lrpair[#1]{brack}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\braces}
+%    \begin{macrocode}
+\newcommand{\braces}[2][right]{\lrpair[#1]{brace}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\angles}
+%    \begin{macrocode}
+\newcommand{\angles}[2][right]{\lrpair[#1]{angle}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\downarrows}
+%    \begin{macrocode}
+\newcommand{\downarrows}[2][right]{\delimit[#1]{\downarrow}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Downarrows}
+%    \begin{macrocode}
+\newcommand{\Downarrows}[2][right]{\delimit[#1]{\Downarrow}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\uparrows}
+%    \begin{macrocode}
+\newcommand{\uparrows}[2][right]{\delimit[#1]{\uparrow}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Uparrows}
+%    \begin{macrocode}
+\newcommand{\Uparrows}[2][right]{\delimit[#1]{\Uparrow}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\updownarrows}
+%    \begin{macrocode}
+\newcommand{\updownarrows}[2][right]{\delimit[#1]{\updownarrow}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Updownarrows}
+%    \begin{macrocode}
+\newcommand{\Updownarrows}[2][right]{\delimit[#1]{\Updownarrow}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Shortcuts for Large Delimiters}
+%
+% Since the delimiters here are all ``large'' delimiters (requiring
+% the use of \verb!\left! and \verb!\right!), these macros take no
+% optional argument.
+%
+% \begin{macro}{\moustaches}
+%    \begin{macrocode}
+\newcommand{\moustaches}[2]{\lrpair[right]{moustache}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\groups}
+%    \begin{macrocode}
+\newcommand{\groups}[2]{\lrpair[right]{group}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\arrowverts}
+%    \begin{macrocode}
+\newcommand{\arrowverts}[2]{\delimit[right]{\arrowvert}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Arrowverts}
+%    \begin{macrocode}
+\newcommand{\Arrowverts}[2]{\delimit[right]{\Arrowvert}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\braceverts}
+%    \begin{macrocode}
+\newcommand{\braceverts}[2]{\delimit[right]{\bracevert}{#2}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \section{Misc}
+%
+%
+% \begin{macro}{\evalat}
+%    \begin{macrocode}
+\newcommand{\evalat}[3][right]{
+  \@ifnextchar[
+    {\lr@evalat{#1}{#2}{#3}}
+    {\lr@evalat{#1}{#2}{#3}[]}%]
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{lr@evalat}
+%    \begin{macrocode}
+\def\lr@evalat#1#2#3[#4]{{
+  \lr@lrsize{#1}
+  \lr@left. #2 \lr@right|_{#3}^{#4}
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\setst}
+%   Users can redefine this command to change the set builder notation
+%   used in \verb!\sbuilder!.  Specifically, this macro defines the
+%   "such that" symbol used in the notation.
+%
+%    \begin{macrocode}
+\newcommand{\setst}{\;\lr@middle\vert\;}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\sbuilder}
+%    \begin{macrocode}
+\newcommand{\sbuilder}[3][right]
+{{
+  \lr@lrmsize{#1}
+  \lr@left\{ #2 \setst #3 \lr@right\}
+}}
+%    \end{macrocode}
+% \end{macro}
+
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{212}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
