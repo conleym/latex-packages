@@ -117,12 +117,13 @@ Running "make install" installs the files in the local TeX tree.
 %\changes{v1.00}{2005/08/30}{First public release}
 %
 % \begin{abstract}
-% The \textsf{lr} package contains macros designed to make dealing
-% with delimiters simple.  First, macros are provided to automate size
-% matching, so you don't have to worry about matching \verb!\Bigr!
-% with \verb!\Bigl! or \verb!\right! with \verb!\left!, for example.
-% Also available are macros that automatically match left and right
-% delimiters (e.g., \verb!\langle! and \verb!\rangle!).
+%   The \textsf{lr} package contains macros designed to make dealing with
+%   delimiters simple.  First, macros are provided to automate size matching,
+%   so you don't have to worry about matching |\Bigr| with |\Bigl| or |\right|
+%   with |\left|, for example.
+%
+%   Also available are macros that automatically match left and right
+%   delimiters (e.g., |\langle| and |\rangle|).
 % \end{abstract}
 %
 % \section{Usage}
@@ -138,7 +139,7 @@ Running "make install" installs the files in the local TeX tree.
 % \subsection{Supplementary Delimiter Definitions}
 %
 % We need to define these so we can use all available delimiters with
-% \verb!\lrmatch!.
+% |\lrmatch|.
 %
 % \begin{macro}{\lslash}
 %    \begin{macrocode}
@@ -185,9 +186,8 @@ Running "make install" installs the files in the local TeX tree.
     \ifx\lr@one\lr@M \lr@checktrue \fi \fi \fi
 %    \end{macrocode}
 %
-% The \verb!\relax! is necessary here --- without it, various macros
-% give mysterious errors inside the align environment (and probably
-% other places, too).
+% |\relax| is necessary here --- without it, various macros give mysterious
+% errors inside the align environment (and probably other places, too).
 %
 %    \begin{macrocode}
     \iflr@check\relax
@@ -203,7 +203,7 @@ Running "make install" installs the files in the local TeX tree.
 %
 %
 % \begin{macro}{\lr@lrsize}
-%   Sets up \verb!\lr@right! and \verb!\lr@left!.
+%   Sets up |\lr@right| and |\lr@left|.
 %
 %    \begin{macrocode}
 \newcommand{\lr@lrsize}[1]{
@@ -222,8 +222,8 @@ Running "make install" installs the files in the local TeX tree.
 %
 %
 % \begin{macro}{\lr@lrmsize}
-%   Sets up \verb!\lr@middle!, then calls \verb!\lr@lrsize! to set up
-%   \verb!\lr@left! and \verb!\lr@right!.
+% Sets up |\lr@middle|, then calls |\lr@lrsize| to set up |\lr@left| and
+% |\lr@right|.
 %
 %    \begin{macrocode}
 \newcommand{\lr@lrmsize}[1]{
