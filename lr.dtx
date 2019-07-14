@@ -143,7 +143,7 @@ Running "make install" installs the files in the local TeX tree.
 % \subsection{Supplementary Delimiter Definitions}
 %
 % We need to define these so we can use all available delimiters with
-% |\lrmatch|.
+% |\lrpair|.
 %
 % \begin{macro}{\lslash}
 %    \begin{macrocode}
@@ -301,13 +301,13 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \begin{macro}{\abs}
 %    \begin{macrocode}
-\newcommand{\abs}[2][right]{\delimit[#1]{\vert}{#2}}
+\newcommand{\abs}[2][right]{\lrpair[#1]{vert}{#2}}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\norm}
 %    \begin{macrocode}
-\newcommand{\norm}[2][right]{\delimit[#1]{\Vert}{#2}}
+\newcommand{\norm}[2][right]{\lrpair[#1]{Vert}{#2}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -480,7 +480,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 %
 %
-% \CheckSum{206}
+% \CheckSum{204}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
