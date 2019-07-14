@@ -124,6 +124,10 @@ Running "make install" installs the files in the local TeX tree.
 %
 %   Also available are macros that automatically match left and right
 %   delimiters (e.g., |\langle| and |\rangle|).
+%
+%   This is very similar to (and probably inferior to)
+%   |\DeclarePairedDelimiter| from the \textsf{mathtools} package.
+%
 % \end{abstract}
 %
 % \section{Usage}
@@ -255,8 +259,8 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{macro}{\lr@lrpair}
 %    \begin{macrocode}
 \def\lr@lrpair#1#2#3[#4]{{
-  \edef\lr@ldelim{\csname \makeleftdelimiter{#2} \endcsname}
-  \edef\lr@rdelim{\csname \makerightdelimiter{#4} \endcsname}
+  \edef\lr@ldelim{\csname l#2 \endcsname}
+  \edef\lr@rdelim{\csname r#4 \endcsname}
   \lr@delimit{#1}{\lr@ldelim}{#3}[\lr@rdelim]
 }}
 %    \end{macrocode}
@@ -271,20 +275,6 @@ Running "make install" installs the files in the local TeX tree.
   #3
   \lr@right #4
 }}
-%    \end{macrocode}
-% \end{macro}
-%
-%
-% \begin{macro}{\makeleftdelimiter}
-%    \begin{macrocode}
-\newcommand{\makeleftdelimiter}[1]{l#1}
-%    \end{macrocode}
-% \end{macro}
-%
-%
-% \begin{macro}{\makerightdelimiter}
-%    \begin{macrocode}
-\newcommand{\makerightdelimiter}[1]{r#1}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -490,7 +480,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 %
 %
-% \CheckSum{212}
+% \CheckSum{206}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
