@@ -1,0 +1,229 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+ordinal --- Macros for typesetting ordinal numbers
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+ordinal --- Macros for typesetting ordinal numbers
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2005 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file ordinal.dtx and a Makefile.
+Running "make" generates the derived files README, ordinal.pdf and ordinal.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/ordinal}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/ordinal}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/ordinal}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{ordinal.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package, regmath, gscript}
+%<package>\Package{ordinal}
+%<*package>
+    [2005/08/30 v1.00 Macros for typesetting ordinal numbers]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+%
+% \DoNotIndex{\badfalse, \badtrue, \count}
+%
+%\title{\textsf{ordinal} --- Macros for typesetting ordinal numbers\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+% \section{Usage}
+%
+% \DescribeMacro{\ordinalsuffixof}
+%
+% |\ordinalsuffixof|\marg{N} produces the English ordinal suffix appropriate to the number N. For example,
+% |\ordinalsuffixof{23}| produces \ordinalsuffixof{23}.
+%
+% \DescribeMacro{\ordinal}
+% |\ordinal|\marg{N} produces the number N, followed by the appropriate English ordinal suffix, typeset in
+% superscript. For example, |\ordinal{23}| produces \ordinal{23}.
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\ordinalsuffixof}
+%   Ordinal numbers in English follow a pattern: for most, the
+%   suffix depends entirely on the ones digit.  1 - st, 2 - nd, 3 -
+%   rd, and, for any other digit - th.  But there is an exception:
+%   numbers having 11 - 13 for their two least-significant digits
+%   always take the suffix "th".
+%
+%    \begin{macrocode}
+\newcommand{\ordinalsuffixof}[1]{{
+%    \end{macrocode}
+%
+% First, we need a new switch.  This will tell us if the number's last
+% two digits are in (10, 14).
+%
+%    \begin{macrocode}
+    \newif\ifbad
+    \badfalse
+%    \end{macrocode}
+%
+% Next, compute \#1 mod 100.
+%
+%    \begin{macrocode}
+    \count0 = #1
+    \rmod{\count0}{100}{\count1}
+%    \end{macrocode}
+%
+% Check last two digits.
+%
+%    \begin{macrocode}
+    \ifnum \count1 < 14
+      \ifnum \count1 > 10
+        \relax \badtrue
+      \fi
+    \fi
+%    \end{macrocode}
+%
+% If last two digits were in (10,14), there's nothing else to do --
+% the result is 'th'.
+%
+%    \begin{macrocode}
+   \ifbad th \else
+%    \end{macrocode}
+%
+% Otherwise, compute \#1 mod 10 and go thru the cases.
+%
+%    \begin{macrocode}
+     \count0 = #1
+     \rmod{\count0}{10}{\count1}
+      \ifcase \count1 th \or st \or nd \or rd \else th \fi
+   \fi
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\ordinal}
+%   \begin{macrocode}
+\newcommand{\ordinal}[1]{
+  #1 \superscript{\ordinalsuffixof{#1}}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+% \CheckSum{36}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
