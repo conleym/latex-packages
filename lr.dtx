@@ -93,6 +93,8 @@ Running "make install" installs the files in the local TeX tree.
 \documentclass{ltxdoc}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage[numbered]{hypdoc}
+\usepackage{amsmath}
+\usepackage{fancyvrb}
 \usepackage{\jobname}
 \EnableCrossrefs
 \CodelineIndex
@@ -132,6 +134,88 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \section{Usage}
 %
+% \subsection{Introduction}
+%
+% This package exists to simplify the occasionally-tedious process of matching
+% math delimiters, providing a mechanism to define macros for delimiter pairs,
+% and providing definitions using this mechanism for many built-in \LaTeX{}
+% delimiters.
+%
+% In \LaTeX{}, delimiter pairs are most-commonly defined by two matching
+% macros, the left delimiter beginning with ``l'' and the right with ``r''.
+% Examples include |\lfloor| and |\rfloor|, |\langle| and |\rangle|, etc.
+% There are several examples of delimiters that follow a different pattern --
+% the left and right delimiters are the same macro, e.g., |\uparrow|.
+%
+% This package provides a mechanism for defining delimiter pairs following
+% either of these patterns.
+%
+% In addition to matching delimiter \textit{characters} appropriately, one must
+% also match the delimiter \textit{size}. The easiest approach is to use
+% \textit{auto-sizing}, specifying |\left| and |\right| to mark each
+% delimiter character. Manual sizing is also available by using, e.g., |\Bigl|
+% and |\Bigr| instead.
+%
+% This package's macros allow you to control the size of your delimiter pairs
+% if you so choose, by providing optional size arguments. If none are provided,
+% delimiters default to auto-sizing.
+%
+% \subsection{Defining Delimiter Pairs}
+%
+
+% \DescribeMacro{\lrpair}
+%
+%
+% Define a new delimiter pair, to be used when the left and right delimiters
+% have names according to the usual convention, i.e., the delimiter pair
+% \meta{X} is represented by two macros, the left by |\lX| and the right by
+% |\rX|. For example, the standard \LaTeX{} delimiter pair \meta{floor} is
+% represented by |\lfloor| and |\rfloor|.
+%
+% This package defines |\floor| as follows:
+% \begin{verbatim}
+%   \newcommand{\floor}[2][right]{\lrpair[#1]{floor}{#2}}
+% \end{verbatim}
+%
+% This creates the macro |\floor|, which takes a required argument \marg{expr}
+% (the expression to typeset within delimiters) and an optional argument
+% \oarg{size}, the size of delimiter to use, which defaults to auto-sizing.
+%
+% \newcommand{\example}{\frac{3^x - y}{z}}
+% \SaveVerb{autosized}|\floor{\frac{3^x - y}{z}}|
+% \SaveVerb{sized}|\floor[Bigg]{\frac{3^x - y}{z}}|
+%
+% Some examples of its use. On the left, we have auto-sizing
+% (\UseVerb{autosized}).
+% On the right, explicit sizing (\UseVerb{sized}).
+% \begin{align*}
+%     \floor{\example} & \floor[Bigg]{\example}
+% \end{align*}
+%
+%
+% \DescribeMacro{\delimit}
+%
+% Define a new delimiter pair, to be used when the left and right delimiters
+% are the same macro. For example, the standard \LaTeX\ delimiter pair \meta{uparrow}
+% is represented on both the left and the right by the single macro |\uparrow|.
+%
+% Its use is almost identical to that of |\lrpair|. This package defines
+% |\uparrows| as follows:
+% \begin{verbatim}
+%   \newcommand{\uparrows}[2][right]{\delimit[#1]{\uparrow}{#2}}
+% \end{verbatim}
+%
+% \subsection{Set Builder Notation}
+%
+% \DescribeMacro{\setst}
+%
+% The symbol to be used to indicate ``such that'' for use with |\sbuilder|.
+%
+% \DescribeMacro{\sbuilder}
+%
+% Simple set builder notation. As with other macros in this package, it takes an optional size argument.
+% |\sbuilder[Bigg]{x}{x > 0}|: \[\sbuilder[Bigg]{x}{x > 0}\]
+%
 %
 % \section{Implementation}
 %
@@ -140,34 +224,6 @@ Running "make install" installs the files in the local TeX tree.
 
 %    \end{macrocode}
 %
-% \subsection{Supplementary Delimiter Definitions}
-%
-% We need to define these so we can use all available delimiters with
-% |\lrpair|.
-%
-% \begin{macro}{\lslash}
-%    \begin{macrocode}
-\newcommand{\lslash}{/}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\rslash}
-%    \begin{macrocode}
-\newcommand{\rslash}{\backslash}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\lparen}
-%    \begin{macrocode}
-\newcommand{\lparen}{(}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\lparen}
-%    \begin{macrocode}
-\newcommand{\rparen}{)}
-%    \end{macrocode}
-% \end{macro}
 %
 % \subsection{Macros for Delimiting Mathematical Formulae}
 %
@@ -293,6 +349,36 @@ Running "make install" installs the files in the local TeX tree.
 \newcommand{\delimit}[3][right]{
   \lr@impl{#1}{#2}{#3}{\lr@delimit}
 }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Supplementary Delimiter Definitions}
+%
+% We need to define these so we can use all available delimiters with
+% |\lrpair|.
+%
+% \begin{macro}{\lslash}
+%    \begin{macrocode}
+\newcommand{\lslash}{/}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\rslash}
+%    \begin{macrocode}
+\newcommand{\rslash}{\backslash}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lparen}
+%    \begin{macrocode}
+\newcommand{\lparen}{(}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lparen}
+%    \begin{macrocode}
+\newcommand{\rparen}{)}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -453,7 +539,7 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \begin{macro}{\setst}
 %   Users can redefine this command to change the set builder notation
-%   used in \verb!\sbuilder!.  Specifically, this macro defines the
+%   used in |\sbuilder|.  Specifically, this macro defines the
 %   "such that" symbol used in the notation.
 %
 %    \begin{macrocode}
