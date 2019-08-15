@@ -6,7 +6,7 @@ RM=rm
 
 PACKAGES=catcode package fontdimen defcommand ifmm gcommand \
 gbox gsymb gaccent mathscsl gfont gscript \
-lr pzc uniformmargins kern overstrike regmath mcsymb alphabetshorthand ordinal
+lr pzc uniformmargins kern overstrike regmath mcsymb mcfunction alphabetshorthand ordinal
 
 all:
 	for P in $(PACKAGES) ; do $(MAKE) PACKAGE=$${P} package ; done

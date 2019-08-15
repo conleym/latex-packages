@@ -1,0 +1,364 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+mcfunction --- Function notation macros
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+mcfunction --- Function notation macros
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2005 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file mcfunction.dtx and a Makefile.
+Running "make" generates the derived files README, mcfunction.pdf and mcfunction.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/mcfunction}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/mcfunction}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/mcfunction}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{mcfunction.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package, amsopn, amssymb}
+%<package>\Package{mcfunction}
+%<*package>
+    [2005/08/30 v1.00 Function notation macros]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+%
+%\title{\textsf{mcfunction} --- Function notation macros\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+%
+% \section{Usage}
+%
+% This package provides several macros to typeset standard mathematical function
+% notation. The symbols used have sensible defaults, but can be customized
+% as required.
+%
+% \DescribeMacro{\func}
+% |\func|\marg{domain}\oarg{codomain}
+%
+% A function from \meta{domain} to \meta{codomain}.
+%
+% \meta{codomain} is optional and defaults to \meta{domain}.
+% |$f\func{A}[B]$| gives (by default) $f\func{A}[B]$.
+%
+% The symbol between $f$ and the domain is specified by |\functioncolon|.
+% The symbol between the domain and codomain is specified by |\functionarrow|.
+%
+%
+% \DescribeMacro{\maps}
+% |\maps|\marg{d}\marg{c}
+%
+% \meta{d} in the domain maps to \meta{c} in the codomain:  $\maps{d}{c}$.
+%
+% The symbol between \meta{d} and \meta{c} is specified by |\mapsarrow|.
+%
+%
+% \DescribeMacro{\image}
+% |\image|\marg{set}
+%
+% The image of \meta{A} under $f$: |$f\image{A}| $f\image{A}$.
+%
+% The symbols used to delimit \meta{A} are specified by |\leftimagedelimiter|
+% (defaults to |\left[|) and |\rightimagedelimiter| (|\right]|).
+%
+% \DescribeMacro{\preimage}
+% |\preimage|\marg{set}
+%
+% The preimage of the set \meta{A} under $f$: |$f\preimage{A}$| $f\preimage{A}$.
+%
+% \DescribeMacro{\restrictedto}
+% |\restrictedto|\marg{set}
+%
+% The function $f$ restricted to the set \meta{A}:
+% |$f\restrictedto{A}$| $f\restrictedto{A}$.
+%
+%
+% \subsection{Configuration Macros}
+%
+% Macros in this section can be redefined (with |\renewcommand| or |\let|) to
+% customize typesetting with |\func|.
+%
+% \DescribeMacro{\functioncolon}
+%
+% The symbol to typeset between the function name and the domain. Defaults to
+% $\functioncolon$.
+%
+%
+% \DescribeMacro{\functionarrow}
+%
+% The symbol to typeset between the domain and the codomain. Defaults to
+% $\functionarrow$.
+%
+% \DescribeMacro{\mapsarrow}
+%
+% The symbol to typeset between the member of the domain and the mapped member
+% of the codomain in |\maps|. Defaults to $\mapsarrow$.
+%
+% \subsection{Additional Macros}
+%
+% \DescribeMacro{\injection}
+% |\injection|\marg{domain}\oarg{codomain}
+%
+% This is a shorthand notation. |$f\injection{A}[B]$| gives
+% $f\injection{A}[B]$.  The arrow used is not affected by changes to
+% |\functionarrow|, although the colon symbol \emph{is} affected
+% by changes to |\functioncolon|.
+%
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+% \begin{macro}{\func}
+% Standard \LaTeX{} optional argument handling for codomain.
+%    \begin{macrocode}
+\newcommand{\func}[1]{
+  \@ifnextchar[
+    {\mcfunction@func@i{#1}}
+    {\mcfunction@func@i{#1}[#1]}%]
+}
+
+\def\mcfunction@func@i#1[#2]{
+  \functioncolon #1 \functionarrow #2
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\injection}
+%   This is a so-called ``two-step" macro.  First, we make a temporary
+%   assignment to |\hookrightarrow|, then we call |\func| to
+%   do the work.
+%    \begin{macrocode}
+\newcommand{\injection}[1]{
+  \let\functionarrow = \hookrightarrow
+  \func{#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\maps}
+%    \begin{macrocode}
+\newcommand{\maps}[2]{
+  #1 \mapsarrow #2
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\image}
+%    \begin{macrocode}
+\newcommand{\image}[1]{
+  \leftimagedelimiter #1 \rightimagedelimiter
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\preimage}
+%    \begin{macrocode}
+\newcommand{\preimage}[1]{
+^{-1}\image{#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\restrictedto}
+%    \begin{macrocode}
+\newcommand{\restrictedto}[1]{
+  \restrictionoperator{#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Configuration Macros}
+%
+%
+% These are simply defined with default values.  Users should feel
+% free to modify these to customize the behavior of various function
+% macros.
+%
+% \begin{macro}{\functionarrow}
+%    \begin{macrocode}
+\newcommand{\functionarrow}{\to}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\functioncolon}
+%    \begin{macrocode}
+\newcommand{\functioncolon}{\colon}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\mapsarrow}
+%    \begin{macrocode}
+\newcommand{\mapsarrow}{\mapsto}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\rightimagedelimiter}
+%    \begin{macrocode}
+\newcommand{\rightimagedelimiter}{\right]}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\leftimagedelimiter}
+%    \begin{macrocode}
+\newcommand{\leftimagedelimiter}{\left[}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\restrictionoperator}
+%    \begin{macrocode}
+\newcommand{\restrictionoperator}{\upharpoonright} % requires amssymb
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Math Operators}
+%
+%
+% \textsf{amsopn} provides |\DeclareMathOperator| (which explains
+% why it's required for this package).
+%
+% \begin{macro}{\dom}
+%    \begin{macrocode}
+\DeclareMathOperator{\dom}{dom}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ran}
+%    \begin{macrocode}
+\DeclareMathOperator{\ran}{ran}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\fld}
+%    \begin{macrocode}
+\DeclareMathOperator{\fld}{fld}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
