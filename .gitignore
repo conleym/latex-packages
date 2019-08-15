@@ -1,2 +1,24 @@
+# emacs
 auto/
+*_region_.*
+
+# output files (from manual latexmk or emacs runs).
+*.aux
+*.fdb_latexmk
+*.fls
+*.glo
+*.gls
+*.hd
+*.idx
+*.ilg
+*.ind
+*.ins
+*.out
+*.pdf
+*.sty
+*.synctex.gz
+README*.txt
+
+
+# makefile
 out/
