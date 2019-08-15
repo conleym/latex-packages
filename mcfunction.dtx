@@ -82,7 +82,7 @@ Running "make install" installs the files in the local TeX tree.
 \ProvidesFile{mcfunction.dtx}
 %</driver>
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<package>\RequirePackage{package, amsopn, amssymb}
+%<package>\RequirePackage{package, amssymb}
 %<package>\Package{mcfunction}
 %<*package>
     [2005/08/30 v1.00 Function notation macros]
@@ -126,7 +126,7 @@ Running "make install" installs the files in the local TeX tree.
 % A function from \meta{domain} to \meta{codomain}.
 %
 % \meta{codomain} is optional and defaults to \meta{domain}.
-% |$f\func{A}[B]$| gives (by default) $f\func{A}[B]$.
+% |$f\func{A}[B]$| is typeset (by default) as $f\func{A}[B]$.
 %
 % The symbol between $f$ and the domain is specified by |\functioncolon|.
 % The symbol between the domain and codomain is specified by |\functionarrow|.
@@ -135,29 +135,38 @@ Running "make install" installs the files in the local TeX tree.
 % \DescribeMacro{\maps}
 % |\maps|\marg{d}\marg{c}
 %
-% \meta{d} in the domain maps to \meta{c} in the codomain:  $\maps{d}{c}$.
+% \meta{d} in the domain maps to \meta{c} in the codomain.
+% |\maps{d}{c}| is typeset (by default) as $\maps{d}{c}$.
 %
 % The symbol between \meta{d} and \meta{c} is specified by |\mapsarrow|.
+%
+% \DescribeMacro{\funcmaps}
+% |\funcmaps|\marg{d}\marg{c}
+%
+% Same as |\maps|, but also includes |\functioncolon|.
+% |$f\funcmaps{d}{c}| is typeset (by default) as $f\funcmaps{d}{c}$
 %
 %
 % \DescribeMacro{\image}
 % |\image|\marg{set}
 %
-% The image of \meta{A} under $f$: |$f\image{A}| $f\image{A}$.
+% The image of \meta{set}.
+% |$f\image{A}| is typeset (by default) as $f\image{A}$.
 %
 % The symbols used to delimit \meta{A} are specified by |\leftimagedelimiter|
-% (defaults to |\left[|) and |\rightimagedelimiter| (|\right]|).
+% (defaults to |\left[|) and |\rightimagedelimiter| (defaults to |\right]|).
 %
 % \DescribeMacro{\preimage}
 % |\preimage|\marg{set}
 %
-% The preimage of the set \meta{A} under $f$: |$f\preimage{A}$| $f\preimage{A}$.
+% The preimage of the set \meta{set}.
+% |$f\preimage{A}$| is typeset (by default) as $f\preimage{A}$.
 %
 % \DescribeMacro{\restrictedto}
 % |\restrictedto|\marg{set}
 %
-% The function $f$ restricted to the set \meta{A}:
-% |$f\restrictedto{A}$| $f\restrictedto{A}$.
+% The restriction of a function to the set \meta{set}.
+% |$f\restrictedto{A}$|is typeset (by default) as $f\restrictedto{A}$.
 %
 %
 % \subsection{Configuration Macros}
@@ -236,6 +245,15 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 %
+% \begin{macro}{\funcmaps}
+%    \begin{macrocode}
+\newcommand{\funcmaps}[2]{
+  \functioncolon\maps{#1}{#2}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
 % \begin{macro}{\image}
 %    \begin{macrocode}
 \newcommand{\image}[1]{
@@ -307,39 +325,13 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 %
-% \subsection{Math Operators}
-%
-%
-% \textsf{amsopn} provides |\DeclareMathOperator| (which explains
-% why it's required for this package).
-%
-% \begin{macro}{\dom}
-%    \begin{macrocode}
-\DeclareMathOperator{\dom}{dom}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\ran}
-%    \begin{macrocode}
-\DeclareMathOperator{\ran}{ran}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\fld}
-%    \begin{macrocode}
-\DeclareMathOperator{\fld}{fld}
-%    \end{macrocode}
-% \end{macro}
-%
-%
-%
 %    \begin{macrocode}
 \EndPackage
 %</package>
 %    \end{macrocode}
 %
 %
-% \CheckSum{0}
+% \CheckSum{51}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
