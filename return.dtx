@@ -1,0 +1,209 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+return --- Return a value to the enclosing group
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+return --- Return a value to the enclosing group
+Author:  Mike Conley
+E-mail:  conasdf@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2005 by Mike Conley <conasdf@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Mike Conley.
+
+This work consists of the file return.dtx and a Makefile.
+Running "make" generates the derived files README, return.pdf and return.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/return}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/return}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/return}
+\generate{
+  \file{README-\jobname.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{return.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\RequirePackage{package}
+%<package>\Package{return}
+%<*package>
+    [2005/08/30 v1.00 Return a value to the enclosing group]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage[numbered]{hypdoc}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+%
+%
+%\title{\textsf{return} --- Return a value to the enclosing group\thanks{This file
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Mike Conley\thanks{E-mail: conasdf@gmail.com}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2005/08/30}{First public release}
+%
+%
+% \section{Usage}
+%
+%
+% This is a simple package defining two macros: |\return| and |\dreturn|.
+% |\return|\marg{macro body} uses |\xdef| to define a global macro that will be
+% expanded immediately after the current group is ended.  Similarly, |\dreturn|
+% uses |\gdef|. These are useful for propogating values up one level, rather
+% than globally.
+%
+% The difference between the two is clear in view of the difference between
+% |\xdef| (defined as |\global\edef|) and |\gdef| (defined as |\global\def|),
+% i.e., the difference between |\edef| and |\def|: |\edef| expands at definition
+% time, whereas |\def| delays expansion until use.
+%
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+% \begin{macro}{\return}
+% This simply defines a ``private'' macro, |\return@return| (using |\xdef|),
+% to be expanded the current group is closed.
+%    \begin{macrocode}
+\newcommand{\return}{
+  \aftergroup\return@return
+  \xdef\return@return
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\greturn}
+% The same as |\return|, but using |\gdef| instead of |\xdef|.
+%    \begin{macrocode}
+\newcommand{\greturn}{
+  \aftergroup\return@return
+  \gdef\return@return
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% What on earth do these do?
+%
+% \begin{macro}{\returntoks}
+%    \begin{macrocode}
+\newcommand{\returntoks}[2][\relax]{
+  \return{#1#2 = {\the#2}}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\returnnum}
+%    \begin{macrocode}
+\newcommand{\returnnum}[2][\relax]{
+  \return{#1#2 = \the#2}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+\EndPackage
+%</package>
+%    \end{macrocode}
+%
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \endinput
+% Local Variables:
+% mode: doctex
+% TeX-master: t
+% End:
