@@ -137,8 +137,8 @@ Running "make install" installs the files in the local TeX tree.
 
 %    \end{macrocode}
 % \begin{macro}{\return}
-% This simply defines a ``private'' macro, |\return@return| (using |\xdef|),
-% to be expanded the current group is closed.
+% This simply defines a macro, |\return@return| (using |\xdef|),
+% to be expanded after the current group is closed.
 %    \begin{macrocode}
 \newcommand{\return}{
   \aftergroup\return@return
